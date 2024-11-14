@@ -12,7 +12,20 @@ const selectUserByEmail = async (email) => {
 };
 
 const getAllUsers = async () => {
-  return await pool.query("SELECT * FROM users");
+  return await pool.query(
+    "SELECT userid, first_name, last_name, email FROM users"
+  );
 };
 
-export { insertUser, selectUserByEmail, getAllUsers };
+const getUserById = async (userid) => {
+  return await pool.query(
+    "SELECT userid, first_name, last_name, email FROM users WHERE userid = $1",
+    [userid]
+  );
+};
+
+const deleteUser = async (userid) => {
+  return await pool.query("DELETE FROM users WHERE userid = $1", [userid]);
+};
+
+export { insertUser, selectUserByEmail, getAllUsers, getUserById, deleteUser };
