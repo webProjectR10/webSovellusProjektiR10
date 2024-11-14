@@ -13,8 +13,20 @@ describe("GET users", () => {
       "userid",
       "first_name",
       "last_name",
-      "email",
-      "password"
+      "email"
+    );
+  });
+  it("should get one user by id", async () => {
+    const response = await fetch(base_url + "users/1");
+    const data = await response.json();
+
+    expect(response.status).to.equal(200);
+    expect(data).to.be.an("array").that.is.not.empty;
+    expect(data[0]).to.include.all.keys(
+      "userid",
+      "first_name",
+      "last_name",
+      "email"
     );
   });
 });

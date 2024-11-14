@@ -1,6 +1,12 @@
 import { hash, compare } from "bcrypt";
 import dotenv from "dotenv";
-import { getAllUsers, insertUser, selectUserByEmail } from "../models/user.js";
+import {
+  deleteUser,
+  getAllUsers,
+  getUserById,
+  insertUser,
+  selectUserByEmail,
+} from "../models/user.js";
 import { ApiError } from "../helpers/apiError.js";
 import jwt from "jsonwebtoken";
 
@@ -79,7 +85,7 @@ const userLogin = async (req, res, next) => {
   }
 };
 
-const getUsers = async (req, res) => {
+const handleGetAllUsers = async (req, res) => {
   try {
     const result = await getAllUsers();
     res.status(200).json(result.rows);
@@ -88,4 +94,31 @@ const getUsers = async (req, res) => {
   }
 };
 
-export { registerUser, userLogin, getUsers };
+const handleGetUserById = async (req, res) => {
+  try {
+    const result = await getUserById(req.params.userid);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+const handleUserDelete = async (req, res) => {
+  try {
+    const result = await deleteUser(req.params.userid);
+    if (result.rowCount === 0) {
+      res.status(404).json({ message: "user not found" });
+    }
+    res.status(200).json("user deleted");
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+export {
+  registerUser,
+  userLogin,
+  handleGetAllUsers,
+  handleGetUserById,
+  handleUserDelete,
+};
