@@ -6,15 +6,17 @@ import Pagination from "../components/Pagination";
 import { useMovieContext } from "../context/MovieContext";
 import { useCallback } from 'react';
 
+const token = process.env.REACT_APP_BEARER_TOKEN;
+
 const HomeScreen = () => {
   const { movies, setMovies, page, setPage, searchQuery, setSearchQuery, filter, setFilter } = useMovieContext();
   const [genres, setGenres] = useState({});
   const [pageCount, setPageCount] = useState(0);
-
+  
   const fetchGenres = () => {
     fetch(`https://api.themoviedb.org/3/genre/movie/list?language=en`, {
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYzNjNTk0MjliNjg0MmU4MGU2MjcwZWZmM2U5MDg5ZCIsIm5iZiI6MTczMTcxOTMxMC4xMTcwMjI4LCJzdWIiOiI2NzIwODZjZjI2ODVjYjY1NjNjMTc2ZGMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.1X8M4DR3nGSPUhWrdER3iCpG61ckqR9PL8Li4KAWkqo',
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
@@ -47,7 +49,7 @@ const HomeScreen = () => {
 
     fetch(url, {
       headers: {
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJjYzNjNTk0MjliNjg0MmU4MGU2MjcwZWZmM2U5MDg5ZCIsIm5iZiI6MTczMTcxOTMxMC4xMTcwMjI4LCJzdWIiOiI2NzIwODZjZjI2ODVjYjY1NjNjMTc2ZGMiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.1X8M4DR3nGSPUhWrdER3iCpG61ckqR9PL8Li4KAWkqo",
+        "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     })
