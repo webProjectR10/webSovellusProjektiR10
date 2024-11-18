@@ -16,3 +16,9 @@ ul li {
 li.selected {
  color: red;
 }
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
