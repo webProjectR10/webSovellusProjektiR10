@@ -7,6 +7,9 @@ import Finnkino from './screens/FinnKino';
 import GroupsScreen from './screens/GroupsScreen';
 import NavBar from './components/NavBar'; // Import Navbar
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ProtectedRoute from './components/ProtectedRoute';
+import UserProvider from './context/UserProvider';
+import Authentication, { AuthenticationMode } from './screens/Authentication';
 
 
 
@@ -19,16 +22,23 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <MovieProvider>
-      <Router>
-        <NavBar /> {/* Navbar will be rendered on all pages */}
-        <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/groupsscreen" element={<GroupsScreen />} />
-        </Routes>
-      </Router>
-    </MovieProvider>
-
+    <UserProvider>
+      <MovieProvider>
+        <Router>
+          <NavBar /> {/* Navbar will be rendered on all pages */}
+          <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/login" element={<Authentication authenticationMode={AuthenticationMode.Login} />} />
+          <Route path="/signup" element={<Authentication authenticationMode={AuthenticationMode.Register} />} />
+          <Route path="/groupsscreen" element={(
+            <ProtectedRoute>
+              <GroupsScreen />
+            </ProtectedRoute>
+          )} />
+          </Routes>
+        </Router>
+      </MovieProvider>
+    </UserProvider>
   );
 }
 //<Route path="/groupsscreen" element={<GroupsScreen />} />

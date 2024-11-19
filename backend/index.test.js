@@ -87,3 +87,18 @@ describe("POST login", () => {
     );
   });
 });
+
+describe("GET groups", () => {
+  it("should get all groups", async () => {
+    const response = await fetch(base_url + "groups/");
+    const data = await response.json();
+
+    expect(response.status).to.equal(200);
+    expect(data).to.be.an("array").that.is.not.empty;
+    expect(data[0]).to.include.all.keys(
+      "groupid",
+      "name",
+      "ownerid",
+    );
+  });
+});
