@@ -7,6 +7,7 @@ import Finnkino from './screens/FinnKino';
 import GroupsScreen from './screens/GroupsScreen';
 import NavBar from './components/NavBar'; // Import Navbar
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import CreateScreen from './screens/CreateScreen';
 
 
 
@@ -25,12 +26,13 @@ function App() {
         <Routes>
         <Route path="/" element={<HomeScreen />} />
         <Route path="/groupsscreen" element={<GroupsScreen />} />
+        <Route path="/create" element={<CreateScreen />} />
         </Routes>
       </Router>
     </MovieProvider>
 
   );
 }
-//<Route path="/groupsscreen" element={<GroupsScreen />} />
+
 
 export default App;

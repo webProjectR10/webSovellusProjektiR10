@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const GroupsScreen = () => {
-  // Define state for searching (if needed)
   const [searchQuery, setSearchQuery] = useState('');
 
-  const createGroup = () => {
-    window.location.href = 'create.html'; // Redirect to create page
-  };
+  const navigate = useNavigate();
+  const createGroup = () => navigate('/create');
 
   const sortGroups = (e) => {
     console.log(`Sort by: ${e.target.value}`);
@@ -27,7 +27,7 @@ const GroupsScreen = () => {
           className="form-control"
           placeholder="Search groups..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // Update state on input change
+          onChange={(e) => setSearchQuery(e.target.value)} 
           onKeyPress={searchGroups}
         />
       </div>
