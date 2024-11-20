@@ -1,10 +1,19 @@
-import { Router } from 'express'
-import { auth } from '../helpers/auth.js'
-import { getGroups } from '../controllers/groupController.js'
+import { Router } from "express";
+import {
+  createGroup,
+  handleGetGroups,
+  handleGetGroupsById,
+  handleGroupDelete,
+} from "../controllers/groupController.js";
 
-const router = Router()
+const router = Router();
 
-router.get('/', getGroups)
+router.get("/", handleGetGroups);
 
+router.get("/:groupid", handleGetGroupsById);
+
+router.post("/create/group", createGroup);
+
+router.delete("/delete/:groupid", handleGroupDelete);
 
 export default router;

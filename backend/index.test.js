@@ -91,14 +91,14 @@ describe("GET users", () => {
       "email"
     );
   });
-  describe("DELETE user", () => {
-    it("Should delete user", async () => {
-      const response = await fetch(base_url + "users/delete/100", {
-        method: "DELETE",
-      });
-      const data = await response.json();
-      expect(response.status).to.equal(200);
-      expect(data).to.equal("user deleted");
+});
+describe("DELETE user", () => {
+  it("Should delete user", async () => {
+    const response = await fetch(base_url + "users/delete/1", {
+      method: "DELETE",
     });
+    const data = await response.json();
+    expect(response.status).to.equal(200);
+    expect(data).to.equal("user deleted");
   });
 });
