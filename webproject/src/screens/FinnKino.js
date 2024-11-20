@@ -4,12 +4,8 @@ import TheaterSelector from "../components/Theaterselector";
 import DatePickerComponent from "../components/DatePicker";
 import ScheduleTable from "../components/ScheduleTable";
 import '../App.css';
-
-
 const Finnkino = () => {
 const { areas, setAreas, selectedArea, setSelectedArea, schedule, setSchedule, startDate, setStartDate } = useFinnkinoContext();
-
-
   const getFinnkinoTheaters = useCallback ((xml) => {
     const parser = new DOMParser()
     const xmlDoc = parser.parseFromString(xml,"application/xml")
@@ -25,7 +21,6 @@ const { areas, setAreas, selectedArea, setSelectedArea, schedule, setSchedule, s
     }
     setAreas(tempAreas)
   }, [setAreas]);
-
   const formatDateTime = (timestamp) => {
     const date = new Date(timestamp);
     if (isNaN(date.getTime())) {
@@ -34,7 +29,6 @@ const { areas, setAreas, selectedArea, setSelectedArea, schedule, setSchedule, s
     }
     return date.toLocaleString("fi-FI", { dateStyle: "medium", timeStyle: "short" });
   };
-
   const getFinnkinoSchedule = useCallback((xml) => { 
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xml, "application/xml");
@@ -52,7 +46,6 @@ const { areas, setAreas, selectedArea, setSelectedArea, schedule, setSchedule, s
         const startTime = startTimeElement.textContent.trim();
         const theater = theaterElement.textContent.trim();
         const formattedStartTime = startTime ? formatDateTime(startTime) : null;
-
       tempSchedule.push({
         title,
         startTime: formattedStartTime,
@@ -64,15 +57,12 @@ const { areas, setAreas, selectedArea, setSelectedArea, schedule, setSchedule, s
   }
     setSchedule(tempSchedule);
   }, [setSchedule]);
-
 useEffect(() => {
   fetch("https://www.finnkino.fi/xml/TheatreAreas/")
     .then((response) => response.text())
     .then((xml) => getFinnkinoTheaters(xml))
     .catch((error) => console.log(error));
 }, [getFinnkinoTheaters]);
-
-
 useEffect(() => {
   if (selectedArea) {
     const day = String(startDate.getDate()).padStart(2, '0');
@@ -80,14 +70,12 @@ useEffect(() => {
     const year = startDate.getFullYear();
     const formattedDate = `${day}.${month}.${year}`;
     console.log("Fetching schedule for area:", selectedArea, "on date:", formattedDate);
-
     fetch(`https://www.finnkino.fi/xml/Schedule/?area=${selectedArea}&dt=${formattedDate}`)
       .then((response) => response.text())
       .then((xml) => getFinnkinoSchedule(xml))
       .catch((error) => console.log(error));
   }
 }, [selectedArea, startDate, getFinnkinoSchedule]);
-
 return (
     <div>
     <div className="filter-container">
@@ -98,5 +86,4 @@ return (
     </div>
   );
 };
-
 export default Finnkino;

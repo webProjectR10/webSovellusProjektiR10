@@ -62,7 +62,7 @@ const userLogin = async (req, res, next) => {
   try {
     const userFromDb = await selectUserByEmail(req.body.email);
     if (userFromDb.rowCount === 0) {
-      return next(new ApiError("invalid credentials"));
+      return next(new ApiError("user doesnt exist"));
     }
     const user = userFromDb.rows[0];
     if (!(await compare(req.body.password, user.password))) {

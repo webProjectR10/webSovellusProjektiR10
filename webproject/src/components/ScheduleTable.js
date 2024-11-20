@@ -1,5 +1,4 @@
 import React from "react";
-
 const ScheduleTable = ({ schedule }) => {
   return (
     <table>
@@ -15,5 +14,4 @@ const ScheduleTable = ({ schedule }) => {
     </table>
   );
 };
-
 export default ScheduleTable;
