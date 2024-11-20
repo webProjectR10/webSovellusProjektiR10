@@ -1,14 +1,12 @@
 import { expect } from "chai";
 import { initializeTestDb } from "./helpers/test.js";
 
-
-
 const base_url = "http://localhost:3001/";
 
 describe("POST register", () => {
-    before(() => {
-        initializeTestDb()
-    })
+  before(() => {
+    initializeTestDb();
+  });
 
   const fName = "joo";
   const lName = "jee";
@@ -92,5 +90,15 @@ describe("GET users", () => {
       "last_name",
       "email"
     );
+  });
+  describe("DELETE user", () => {
+    it("Should delete user", async () => {
+      const response = await fetch(base_url + "users/delete/100", {
+        method: "DELETE",
+      });
+      const data = await response.json();
+      expect(response.status).to.equal(200);
+      expect(data).to.equal("user deleted");
+    });
   });
 });
