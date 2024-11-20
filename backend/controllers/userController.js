@@ -6,7 +6,7 @@ import {
   getUserById,
   insertUser,
   selectUserByEmail,
-} from "../models/user.js";
+} from "../models/userModel.js";
 import { ApiError } from "../helpers/apiError.js";
 import jwt from "jsonwebtoken";
 
@@ -31,7 +31,8 @@ const registerUser = async (req, res, next) => {
       !req.body.password ||
       req.body.password.length < 8 ||
       !/[A-Z]/.test(req.body.password) ||
-      !/[0-9]/.test(req.body.password)
+      !/[0-9]/.test(req.body.password) ||
+      !/[a-z]/.test(req.body.password)
     ) {
       return next(new ApiError("invalid password for user", 400));
     }
@@ -62,11 +63,11 @@ const userLogin = async (req, res, next) => {
   try {
     const userFromDb = await selectUserByEmail(req.body.email);
     if (userFromDb.rowCount === 0) {
-      return next(new ApiError("user doesnt exist"));
+      return next(new ApiError("user doesnt exist", 404));
     }
     const user = userFromDb.rows[0];
     if (!(await compare(req.body.password, user.password))) {
-      return next(new ApiError("invalid credentials"));
+      return next(new ApiError("invalid credentials", 500));
     }
     const token = jwt.sign(req.body.email, process.env.JWT_SECRET_KEY);
     return res
