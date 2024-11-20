@@ -1,5 +1,4 @@
 import React from "react";
-
 const TheaterSelector = ({ areas, setSelectedArea }) => {
   return (
     <div>
@@ -14,5 +13,4 @@ const TheaterSelector = ({ areas, setSelectedArea }) => {
     </div>
   );
 };
-
 export default TheaterSelector;
