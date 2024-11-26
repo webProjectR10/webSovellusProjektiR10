@@ -4,6 +4,7 @@ import {
   getGroupById,
   getGroups,
   insertGroup,
+  updateGroup,
 } from "../models/groupModel.js";
 
 const handleGetGroups = async (req, res, next) => {
@@ -58,4 +59,32 @@ const handleGroupDelete = async (req, res, next) => {
     return next(new ApiError(error.message, 400));
   }
 };
-export { handleGetGroups, handleGetGroupsById, createGroup, handleGroupDelete };
+
+const handleGroupUpdate = async (req, res, next) => {
+  try {
+    if (!req.body.name || req.body.name.length === 0) {
+      return next(new ApiError("invalid name for group", 400));
+    }
+    const groupFromDb = await updateGroup(
+      req.body.groupid,
+      req.body.name,
+      req.body.ownerid
+    );
+    const group = groupFromDb.rows[0];
+
+    return res.status(200).json({
+      groupid: group.groupid,
+      name: group.name,
+      ownerid: group.ownerid,
+    });
+  } catch (error) {
+    return next(new ApiError(error.message, 400));
+  }
+};
+export {
+  handleGetGroups,
+  handleGetGroupsById,
+  createGroup,
+  handleGroupDelete,
+  handleGroupUpdate,
+};
