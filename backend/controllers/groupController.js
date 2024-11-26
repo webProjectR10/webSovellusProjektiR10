@@ -1,4 +1,4 @@
-import { ApiError } from "../helpers/apiError.js";
+import { ApiError } from "../helpers/ApiError.js";
 import {
   deleteGroup,
   getGroupById,
@@ -51,7 +51,7 @@ const createGroup = async (req, res, next) => {
 const handleGroupDelete = async (req, res, next) => {
   try {
     const result = await deleteGroup(req.params.groupid);
-    if (result.rowCount === 0) {
+    if (result.rows === 0) {
       return next(new ApiError("Group not found", 404));
     }
     res.status(200).json("group deleted");
