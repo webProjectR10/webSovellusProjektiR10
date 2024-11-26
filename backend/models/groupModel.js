@@ -18,4 +18,11 @@ const getGroupById = async (groupid) => {
 const deleteGroup = async (groupid) => {
   return await pool.query("DELETE FROM groups WHERE groupid = $1", [groupid]);
 };
-export { getGroups, insertGroup, getGroupById, deleteGroup };
+
+const updateGroup = async (groupid, name, ownerid) => {
+  return await pool.query(
+    "UPDATE groups SET name = $1, ownerid = $2 WHERE groupid = $3 RETURNING *",
+    [name, ownerid, groupid]
+  );
+};
+export { getGroups, insertGroup, getGroupById, deleteGroup, updateGroup };
