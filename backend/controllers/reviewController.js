@@ -31,7 +31,7 @@ const handleGetReviews = async (req, res, next) => {
     const result = await getReviews()
     return res.status(200).json(result.rows)
   } catch (error) {
-    return next(ApiError(error.message, 400))
+    return next(new ApiError(error.message, 400))
   }
 }
 const handleGetReviewById = async (req, res, next) => {
