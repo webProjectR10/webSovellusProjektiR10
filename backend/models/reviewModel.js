@@ -12,7 +12,7 @@ const addReview = async(userId, movieID, rating, comment) => {
 
 const getReviews = async() => {
   return await pool.query(
-    "SELECT * FROM review;",
+    "SELECT review.userID, review.movieID, review.reviewid, review.stars, review.text, review.date_given, users.first_name, users.last_name FROM review LEFT JOIN users ON review.userID = users.userid",
   );
 };
 
@@ -20,7 +20,7 @@ const getReviews = async() => {
 
 const getReviewById = async (id) => {
   return await pool.query(
-    "SELECT * FROM review WHERE reviewID = $1;",
+    "SELECT review.userID, review.reviewid, review.movieID, review.stars, review.text, review.date_given, users.first_name, users.last_name FROM review LEFT JOIN users ON review.userID = users.userid WHERE review.reviewid = $1",
     [id]
   );
 };

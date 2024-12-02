@@ -1,7 +1,7 @@
 import { pool } from "../helpers/db.js";
 
 const getGroups = async () => {
-  return await pool.query("SELECT * FROM groups");
+  return await pool.query("SELECT groupid, name, ownerid, first_name, last_name from groups LEFT JOIN users ON groups.ownerid = users.userid");
 };
 
 const insertGroup = async (name, ownerid) => {
@@ -12,7 +12,7 @@ const insertGroup = async (name, ownerid) => {
 };
 
 const getGroupById = async (groupid) => {
-  return await pool.query("SELECT * FROM groups WHERE groupid = $1", [groupid]);
+  return await pool.query("SELECT groupid, name, ownerid, first_name, last_name FROM groups LEFT JOIN users ON groups.ownerid = users.userid WHERE groupid = $1;", [groupid]);
 };
 
 const deleteGroup = async (groupid) => {
