@@ -7,7 +7,7 @@ import {
   insertUser,
   selectUserByEmail,
 } from "../models/userModel.js";
-import { ApiError } from "../helpers/apiError.js";
+import { ApiError } from "../helpers/ApiError.js";
 import jwt from "jsonwebtoken";
 
 dotenv.config();
@@ -55,7 +55,7 @@ const registerUser = async (req, res, next) => {
       email: user.email,
     });
   } catch (error) {
-    console.log(error.message);
+    return next(new ApiError(error.message));
   }
 };
 
@@ -69,7 +69,13 @@ const userLogin = async (req, res, next) => {
     if (!(await compare(req.body.password, user.password))) {
       return next(new ApiError("invalid credentials", 500));
     }
-    const token = jwt.sign(req.body.email, process.env.JWT_SECRET_KEY);
+    const token = jwt.sign(
+      { email: req.body.email },
+      process.env.JWT_SECRET_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
     return res
       .status(200)
       .json(
@@ -82,7 +88,7 @@ const userLogin = async (req, res, next) => {
         )
       );
   } catch (error) {
-    console.log(error.message);
+    return next(new ApiError(error.message));
   }
 };
 
@@ -91,7 +97,7 @@ const handleGetAllUsers = async (req, res) => {
     const result = await getAllUsers();
     res.status(200).json(result.rows);
   } catch (error) {
-    console.log(error.message);
+    return next(new ApiError(error.message));
   }
 };
 
@@ -100,7 +106,7 @@ const handleGetUserById = async (req, res) => {
     const result = await getUserById(req.params.userid);
     res.status(200).json(result.rows);
   } catch (error) {
-    console.log(error.message);
+    return next(new ApiError(error.message));
   }
 };
 
@@ -112,7 +118,7 @@ const handleUserDelete = async (req, res) => {
     }
     res.status(200).json("user deleted");
   } catch (error) {
-    console.log(error.message);
+    return next(new ApiError(error.message));
   }
 };
 
