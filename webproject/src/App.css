@@ -10,7 +10,7 @@ ul {
 }
 
 ul li {
-  width: 3em;
+  width: 3em; 
 }
 
 li.selected {
@@ -21,4 +21,10 @@ li.selected {
   align-items: center;
   gap: 20px;
 }
+.navbar-nav li {
+  width: auto;
+  flex-grow: 1;
+  text-align: center; 
+}
+
 
