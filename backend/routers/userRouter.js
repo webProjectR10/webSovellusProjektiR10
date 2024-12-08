@@ -5,18 +5,23 @@ import {
   handleGetAllUsers,
   handleGetUserById,
   handleUserDelete,
+  logOut,
 } from "../controllers/userController.js";
 
 const router = Router();
 
 router.get("/", handleGetAllUsers);
 
-router.get("/:userid", handleGetUserById);
-
 router.post("/register", registerUser);
 
 router.post("/login", userLogin);
 
+router.post("/logout", logOut);
+
+router.get("/:userid", handleGetUserById);
+
+
 router.delete("/delete/:userid", handleUserDelete);
+
 
 export default router;
