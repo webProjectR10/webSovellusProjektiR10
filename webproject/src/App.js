@@ -24,6 +24,7 @@ function App() {
   return (
     <UserProvider>
       <MovieProvider>
+        <FinnkinoProvider>
         <Router>
           <NavBar /> {/* Navbar will be rendered on all pages */}
           <Routes>
@@ -35,8 +36,10 @@ function App() {
               <GroupsScreen />
             </ProtectedRoute>
           )} />
+          <Route path="/schedule" element={<Finnkino />} />
           </Routes>
         </Router>
+        </FinnkinoProvider>
       </MovieProvider>
     </UserProvider>
   );
