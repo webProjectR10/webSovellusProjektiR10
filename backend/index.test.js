@@ -39,7 +39,7 @@ describe("POST register", () => {
     );
   });
 });
-
+let authToken;
 describe("POST login", () => {
   const email = "register@foo.com";
   const password = "Register123";
@@ -52,6 +52,7 @@ describe("POST login", () => {
       body: JSON.stringify({ email: email, password: password }),
     });
     const data = await response.json();
+    authToken = data.token;
     expect(response.status).to.equal(200, data.error);
     expect(data).to.be.an("object");
     expect(data).to.include.all.keys(
@@ -61,6 +62,22 @@ describe("POST login", () => {
       "email",
       "token"
     );
+  });
+});
+
+describe("Log out", () => {
+  it("Should log out", async () => {
+    const response = await fetch(base_url + "users/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    const data = await response.json();
+    expect(response.status).to.equal(200);
+    expect(data).to.be.an("object");
+    expect(data.message).to.equal("successfully logged out");
   });
 });
 
@@ -92,6 +109,7 @@ describe("GET users", () => {
     );
   });
 });
+
 describe("DELETE user", () => {
   it("Should delete user", async () => {
     const response = await fetch(base_url + "users/delete/1", {

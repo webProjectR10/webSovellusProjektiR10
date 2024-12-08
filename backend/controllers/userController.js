@@ -9,6 +9,11 @@ import {
 } from "../models/userModel.js";
 import { ApiError } from "../helpers/ApiError.js";
 import jwt from "jsonwebtoken";
+import {
+  addTokenToBlacklist,
+  isTokenBlacklisted,
+  blacklistedTokens
+} from "../models/Blacklist.js";
 
 dotenv.config();
 
@@ -92,7 +97,26 @@ const userLogin = async (req, res, next) => {
   }
 };
 
-const handleGetAllUsers = async (req, res) => {
+const logOut = async (req, res, next) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    if (!token) {
+      return res.status(200).json({ message: "Token doenst exists" });
+    }
+
+    if ( isTokenBlacklisted(token) ) {
+      return res.status(200).json({ message: "Token doenst exists" });
+    }
+
+    await addTokenToBlacklist(token);
+
+    res.status(200).json({ message: "successfully logged out" });
+  } catch (error) {
+    return next(new ApiError(error.message));
+  }
+};
+
+const handleGetAllUsers = async (req, res, next) => {
   try {
     const result = await getAllUsers();
     res.status(200).json(result.rows);
@@ -101,7 +125,7 @@ const handleGetAllUsers = async (req, res) => {
   }
 };
 
-const handleGetUserById = async (req, res) => {
+const handleGetUserById = async (req, res, next) => {
   try {
     const result = await getUserById(req.params.userid);
     res.status(200).json(result.rows);
@@ -110,7 +134,7 @@ const handleGetUserById = async (req, res) => {
   }
 };
 
-const handleUserDelete = async (req, res) => {
+const handleUserDelete = async (req, res, next) => {
   try {
     const result = await deleteUser(req.params.userid);
     if (result.rowCount === 0) {
@@ -128,4 +152,5 @@ export {
   handleGetAllUsers,
   handleGetUserById,
   handleUserDelete,
+  logOut,
 };

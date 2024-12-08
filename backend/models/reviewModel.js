@@ -1,22 +1,17 @@
 import { pool } from "../helpers/db.js";
 
-
-
-const addReview = async(userId, movieID, rating, comment) => {
-  return await pool.connect(
-      "INSERT INTO review (userID, movieID, stars, text, date_given) VALUES ($1, $2, $3, $4, now()) RETURNING *",
-      [userId, productId, rating, comment]
-  );
-};
-
-
-const getReviews = async() => {
+const addReview = async (userId, movieID, rating, comment) => {
   return await pool.query(
-    "SELECT review.userID, review.movieID, review.reviewid, review.stars, review.text, review.date_given, users.first_name, users.last_name FROM review LEFT JOIN users ON review.userID = users.userid",
+    "INSERT INTO review (userID, movieID, stars, text, date_given) VALUES ($1, $2, $3, $4, now()) RETURNING *",
+    [userId, movieID, rating, comment]
   );
 };
 
-
+const getReviews = async () => {
+  return await pool.query(
+    "SELECT review.userID, review.movieID, review.reviewid, review.stars, review.text, review.date_given, users.first_name, users.last_name FROM review LEFT JOIN users ON review.userID = users.userid"
+  );
+};
 
 const getReviewById = async (id) => {
   return await pool.query(
@@ -33,10 +28,7 @@ const updateReview = async (id, rating, comment) => {
 };
 
 const deleteReview = async (id) => {
-  return await pool.query(
-    "DELETE FROM review WHERE reviewID = $1 RETURNING *;",
-    [id]
-  );
+  return await pool.query("DELETE FROM review WHERE reviewID = $1;", [id]);
 };
 
 export { addReview, getReviews, getReviewById, updateReview, deleteReview };
