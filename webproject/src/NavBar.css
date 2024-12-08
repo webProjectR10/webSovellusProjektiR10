@@ -1,0 +1,47 @@
+* {
+  text-decoration: none;
+}
+
+.navbar {
+  background: rgb(0, 0, 0);
+  font-family: calibri;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.navdiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+li {
+  list-style: none;
+  display: inline-block;
+}
+
+li a {
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 25px;
+}
+
+button {
+  background-color: #00AAFF;
+  margin-left: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  width: 90px;
+  cursor: pointer;
+}
+
+button a {
+  color: black;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+
