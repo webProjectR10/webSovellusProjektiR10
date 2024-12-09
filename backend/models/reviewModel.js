@@ -1,9 +1,9 @@
 import { pool } from "../helpers/db.js";
 
-const addReview = async (userId, movieID, rating, comment) => {
+const addReview = async (userid, movieid, comment, rating) => {
   return await pool.query(
-    "INSERT INTO review (userID, movieID, stars, text, date_given) VALUES ($1, $2, $3, $4, now()) RETURNING *",
-    [userId, movieID, rating, comment]
+    "INSERT INTO review (userid, movieid, stars, text, date_given) VALUES ($1, $2, $3, $4, now()) RETURNING *",
+    [userid, movieid, rating, comment]
   );
 };
 
