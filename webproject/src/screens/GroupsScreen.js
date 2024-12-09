@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useUser } from '../context/UseUser';
 import CreateGroup from '../components/CreateGroupPopup';
 import axios from 'axios';
+import '../GroupsScreen.css';
 
 const url = process.env.REACT_APP_API_URL;
 
-
 const GroupsScreen = () => {
-  // Define state for searching (if needed)
   const [searchQuery, setSearchQuery] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [groupName, setGroupName] = useState("");
@@ -30,32 +29,33 @@ const GroupsScreen = () => {
     fetchGroups();
   }, []);
 
-
   const sortGroups = (e) => {
     console.log(`Sort by: ${e.target.value}`);
-    // Implement sorting logic here
+
   };
+
   const searchGroups = (event) => {
     if (event.key === 'Enter') {
       console.log('Searching groups...');
-      // Implement search logic here based on searchQuery state
+  
     }
   };
-  const handleSubmit = async (e) => { //pitäs vaatia tokenia
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-      const response = await axios.post(url +'/groups/create/group', {
+    try {
+      const response = await axios.post(url + '/groups/create/group', {
         name: groupName,
         ownerid: user.userid,
       });
-      
-    console.log(response);
-    await fetchGroups();
-    setGroupName("");
-    closeModal();
+
+      console.log(response);
+      await fetchGroups();
+      setGroupName("");
+      closeModal();
     } catch (error) {
-    console.error("Error creating group:", error.response?.data || error.message);
+      console.error("Error creating group:", error.response?.data || error.message);
     }
   };
 
@@ -67,16 +67,23 @@ const GroupsScreen = () => {
           className="form-control"
           placeholder="Search groups..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)} // Update state on input change
+          onChange={(e) => setSearchQuery(e.target.value)}
           onKeyPress={searchGroups}
         />
       </div>
       <div className="create-group-box">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Group name"
+          value={groupName}
+          onChange={(e) => setGroupName(e.target.value)}
+        />
         <button className="btn btn-primary" onClick={openModal}>
           Create New Group
         </button>
       </div>
-      <CreateGroup //UI:ta vois parantaa jos on aikaa/motia (ei ole)
+      <CreateGroup 
         isOpen={isModalOpen}
         closeModal={closeModal}
         groupName={groupName}
@@ -94,7 +101,7 @@ const GroupsScreen = () => {
           groups.map((group) => (
             <div className="group" key={group.groupid}>
               <h2>{group.name}</h2>
-              <button>Send request to join</button> {/*vaihtuis open ja leave buttoneiksi jos on jäsen*/}
+              <button className="btn btn-primary">Send request to join</button> {/* Lisätty luokka */}
             </div>
           ))
         ) : (

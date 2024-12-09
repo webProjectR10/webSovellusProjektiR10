@@ -11,8 +11,8 @@ const NavBar = () => {
         
         <ul>
           <button><Link to="/">Movies</Link></button>
-          <button><Link to="/about">groups</Link></button>
-          <button><Link to="/contact">schedules</Link></button>
+          <button><Link to="/groupsscreen">groups</Link></button>
+          <button><Link to="/schedule">schedules</Link></button>
         </ul> 
           <button id="login-button"><Link to="/signup">login</Link></button>
       </div>

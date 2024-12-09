@@ -1,0 +1,60 @@
+.schedules-container {
+  background-color: #333333;
+  max-width: 800px;
+  margin: 36px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  margin-top: 36px;
+}
+
+.schedules-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.schedules-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.schedules-container th, .schedules-container td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.schedules-container th {
+  background-color: #00AAFF;
+  color: white;
+}
+
+.schedules-container td {
+  background-color: #f9f9f9;
+}
+
+.schedules-container button {
+  text-align: center;
+  padding: 10px;
+  background-color: #00AAFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-left: 10px;
+  width: 85%;
+}
+
+.schedules-container button:hover {
+  background-color: #0088cc;
+}
+
+.schedules-container a {
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+  color: #00AAFF;
+  margin-top: 15px;
+}
