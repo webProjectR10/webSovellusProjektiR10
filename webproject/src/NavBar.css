@@ -1,4 +1,4 @@
-*{
+* {
   text-decoration: none;
 }
 
@@ -37,10 +37,19 @@ li a {
   font-size: 18px;
   font-weight: bold;
   margin-right: 25px;
+  background-color: #00AAFF; 
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #0088cc; 
+  color: white; 
 }
 
 button {
-  background-color: #00AAFF;
+  background-color: #00AAFF; 
   color: black;
   margin-left: 10px;
   border-radius: 5px; 
@@ -49,12 +58,14 @@ button {
   cursor: pointer;
   text-decoration: none; 
   border: none;
+  font-size: 18px; 
+  font-weight: bold; 
 }
+
 button:hover {
   background-color: #0088cc; 
   color: white; 
 }
-
 
 button a {
   color: black;
@@ -63,6 +74,6 @@ button a {
   text-decoration: none;
 }
 
-#login-button {
+#login-button, #profile-button {
   margin-left: auto; 
 }
