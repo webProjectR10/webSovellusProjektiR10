@@ -1,3 +1,7 @@
+body {
+  background-color: white;
+}
+
 #container {
   margin: 2em;
 }
@@ -10,12 +14,14 @@ ul {
 }
 
 ul li {
-  width: 3em; 
+  list-style: none;
+  display: inline-block;
 }
 
 li.selected {
- color: red;
+  color: red;
 }
+
 .filter-container {
   display: flex;
   align-items: center;
@@ -25,6 +31,38 @@ li.selected {
   width: auto;
   flex-grow: 1;
   text-align: center; 
+}
+
+
+
+
+.search-movies {
+  background: white;
+  font-family: calibri;
+  padding: 15px;
+  border-radius: 10px;
+  color: black;
+}
+
+.search-movies h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.search-movies button {
+  background-color: #00AAFF;
+  margin-left: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  width: 90px;
+  cursor: pointer;
+}
+
+.search-movies button a {
+  color: black;
+  font-weight: bold;
+  font-size: 15px;
 }
 
 

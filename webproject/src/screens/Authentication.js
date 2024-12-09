@@ -1,6 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
 import React from 'react'
 import { useUser } from "../context/UseUser"
+import '../Authentication.css';
+
+
 
 export const AuthenticationMode = Object.freeze({
     Login: 'Login',
@@ -27,23 +30,35 @@ export default function Authentication({authenticationMode}){
         }
     }
     return (
-        <div>
+        <div className="authentication-container">
             <h3>{authenticationMode === AuthenticationMode.Login ? 'Sign in' : 'Sign up'}</h3>
             <form onSubmit={handleSubmit}>
-                <div>
+                {authenticationMode === AuthenticationMode.Register && (
+                    <>
+                        <div className="form-group">
+                            <label>First name</label>
+                            <input type="text" value={user.firstname} onChange={e => setUser({ ...user, firstname: e.target.value })} />
+                        </div>
+                        <div className="form-group">
+                            <label>Last name</label>
+                            <input type="text" value={user.lastname} onChange={e => setUser({ ...user, lastname: e.target.value })} />
+                        </div>
+                    </>
+                )}
+                <div className="form-group">
                     <label>Email</label>
-                    <input type="email" value = {user.email} onChange = {e => setUser({...user,email: e.target.value})} />
+                    <input type="email" value={user.email} onChange={e => setUser({ ...user, email: e.target.value })} />
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Password</label>
-                    <input type="password" value = {user.password} onChange = {e => setUser({...user,password: e.target.value})}/>
+                    <input type="password" value={user.password} onChange={e => setUser({ ...user, password: e.target.value })}/>
+                </div>
+                <div className="form-group">
+                    <button type="submit">{authenticationMode === AuthenticationMode.Login ? 'Login' : 'Submit'}</button>
                 </div>
                 <div>
-                    <button>{authenticationMode === AuthenticationMode.Login ? 'Login' : 'Submit'}</button>
-                </div>
-                <div>
-                    <Link to = {authenticationMode === AuthenticationMode.Login ? '/signup' : '/login'}>
-                    {authenticationMode === AuthenticationMode.Login ? 'No account? Sign up' : 'Already signed up? Sign in'}
+                    <Link to={authenticationMode === AuthenticationMode.Login ? '/signup' : '/login'}>
+                        {authenticationMode === AuthenticationMode.Login ? 'No account? Sign up' : 'Already signed up? Sign in'}
                     </Link>
                 </div>
             </form>

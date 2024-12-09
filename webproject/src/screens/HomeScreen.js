@@ -13,6 +13,16 @@ const HomeScreen = () => {
   const [genres, setGenres] = useState({});
   const [pageCount, setPageCount] = useState(0);
   
+  useEffect(() => {
+    
+    document.body.style.backgroundColor = 'white';
+
+    
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
+  }, []);
+
   const fetchGenres = () => {
     fetch(`https://api.themoviedb.org/3/genre/movie/list?language=en`, {
       headers: {
@@ -77,7 +87,7 @@ const HomeScreen = () => {
   };
 
   return (
-    <div>
+    <div className="search-movies">
       <h3>Search Movies</h3>
       <Search query={searchQuery} setQuery={setSearchQuery} filter={filter} setFilter={setFilter} handleSearch={handleSearch} />
       <MovieList movies={movies} />
@@ -85,5 +95,7 @@ const HomeScreen = () => {
     </div>
   );
 };
+
+
 
 export default HomeScreen;
