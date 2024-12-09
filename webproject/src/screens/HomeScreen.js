@@ -12,6 +12,7 @@ const HomeScreen = () => {
   const { movies, setMovies, page, setPage, searchQuery, setSearchQuery, filter, setFilter } = useMovieContext();
   const [genres, setGenres] = useState({});
   const [pageCount, setPageCount] = useState(0);
+  const [inputValue, setInputValue] = useState(searchQuery)
   
   useEffect(() => {
     
@@ -83,15 +84,19 @@ const HomeScreen = () => {
 
   const handleSearch = () => {
     setPage(1);
-    setSearchQuery(searchQuery);
+    setSearchQuery(inputValue);
   };
-
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+    setMovies([])
+    setPage(1)
+  }
   return (
     <div className="search-movies">
       <h3>Search Movies</h3>
-      <Search query={searchQuery} setQuery={setSearchQuery} filter={filter} setFilter={setFilter} handleSearch={handleSearch} />
+      <Search query={inputValue} setQuery={setInputValue} filter={filter} setFilter={handleFilterChange} handleSearch={handleSearch} />
       <MovieList movies={movies} />
-      <Pagination pageCount={pageCount} setPage={setPage} />
+      <Pagination pageCount={pageCount} setPage={setPage} currentPage={page} />
     </div>
   );
 };

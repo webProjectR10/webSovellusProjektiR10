@@ -1,9 +1,15 @@
 const Search = ({query, setQuery, filter, setFilter, handleSearch}) => {
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  }
     return (
         <div>
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={handleKeyPress}
             placeholder="Search Movies"
           />
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
