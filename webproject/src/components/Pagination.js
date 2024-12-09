@@ -1,6 +1,6 @@
 import ReactPaginate from 'react-paginate';
 
-const Pagination = ({ pageCount, setPage }) => {
+const Pagination = ({ pageCount, setPage, currentPage }) => {
   return (
     <ReactPaginate
       breakLabel="..."
@@ -10,6 +10,7 @@ const Pagination = ({ pageCount, setPage }) => {
       pageCount={pageCount}
       previousLabel="<"
       renderOnZeroPageCount={null}
+      forcePage={currentPage - 1}
     />
   );
 };
