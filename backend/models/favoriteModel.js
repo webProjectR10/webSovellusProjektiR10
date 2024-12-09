@@ -2,7 +2,7 @@ import { pool } from "../helpers/db.js";
 
 const addFavorite = async (userId, movieID) => {
   return await pool.query(
-    "INSERT INTO favorites (userID, movieID,) VALUES ($1, $2) RETURNING *",
+    "INSERT INTO favorites (userID, movieID) VALUES ($1, $2) RETURNING *",
     [userId, movieID]
   );
 };

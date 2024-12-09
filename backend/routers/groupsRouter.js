@@ -13,7 +13,7 @@ router.get("/", handleGetGroups);
 
 router.get("/:groupid", handleGetGroupsById);
 
-router.post("/create/group", createGroup);
+router.post("/create", createGroup);
 
 router.delete("/delete/:groupid", handleGroupDelete);
 

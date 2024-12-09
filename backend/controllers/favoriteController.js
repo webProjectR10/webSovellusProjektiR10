@@ -27,14 +27,14 @@ const handleGetFavoritesByUserId = async (req, res, next) => {
 
 const handleAddFavorite = async (req, res, next) => {
   try {
-    const favoriteFromDb = await addFavorite(req.body.userid, req.body.movieID);
+    const favoriteFromDb = await addFavorite(req.body.userid, req.body.movieid);
 
-    const favorite = groupFromDb.rows[0];
+    const favorite = favoriteFromDb.rows[0];
 
     return res.status(201).json({
-      favoriteid: favorite.favoriteID,
-      userid: favorite.userID,
-      movieid: favorite.movieID,
+      favoriteid: favorite.favoriteid,
+      userid: favorite.userid,
+      movieid: favorite.movieid,
     });
   } catch (error) {
     return next(new ApiError(error.message, 400));
@@ -43,7 +43,7 @@ const handleAddFavorite = async (req, res, next) => {
 
 const handleFavoriteDelete = async (req, res, next) => {
   try {
-    const result = await deleteFavorite(req.params.favoriteid);
+    const result = await deleteFavorite(req.body.favoriteid);
     if (result.rows === 0) {
       return next(new ApiError("favorite not found", 404));
     }
