@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import React from 'react'
 import { useUser } from "../context/UseUser"
 import '../Authentication.css';
+import { useEffect } from 'react'
 
 
 
@@ -29,6 +30,7 @@ export default function Authentication({authenticationMode}){
             alert(message)
         }
     }
+
     return (
         <div className="authentication-container">
             <h3>{authenticationMode === AuthenticationMode.Login ? 'Sign in' : 'Sign up'}</h3>
