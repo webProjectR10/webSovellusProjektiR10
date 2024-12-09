@@ -1,0 +1,14 @@
+body {
+    background-color: #1A1A1A; 
+  }
+  
+  .GroupDetailsPage {
+    max-width: 800px;
+    margin: 36px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #333333; 
+    color: white;
+  }
+

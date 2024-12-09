@@ -5,6 +5,8 @@ import { FinnkinoProvider } from "./context/FinnkinoContext";
 import HomeScreen from './screens/HomeScreen';
 import Finnkino from './screens/FinnKino';
 import GroupsScreen from './screens/GroupsScreen';
+import GroupDetailsPage from './components/GroupDetailsPage';
+import NavBar from './components/NavBar'; // Import Navbar
 import NavBar from './components/NavBar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -18,8 +20,9 @@ function App() {
     <UserProvider>
       <MovieProvider>
         <FinnkinoProvider>
+
           <Router>
-            <NavBar /> {/* Navbar will be rendered on all pages */}
+            <NavBar />
             <Routes>
               <Route path="/" element={<HomeScreen />} />
               <Route path="/login" element={<Authentication authenticationMode={AuthenticationMode.Login} />} />
@@ -42,6 +45,21 @@ function App() {
               )} />
             </Routes>
           </Router>
+        <Router>
+          <NavBar /> {/* Navbar will be rendered on all pages */}
+          <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/login" element={<Authentication authenticationMode={AuthenticationMode.Login} />} />
+          <Route path="/signup" element={<Authentication authenticationMode={AuthenticationMode.Register} />} />
+          <Route path="/groupsscreen" element={(
+            <ProtectedRoute>
+              <GroupsScreen />
+            </ProtectedRoute>
+          )} />
+          <Route path="/schedule" element={<Finnkino />} />
+          <Route path="/group/:groupId" element={<GroupDetailsPage />} />
+          </Routes>
+        </Router>
         </FinnkinoProvider>
       </MovieProvider>
     </UserProvider>

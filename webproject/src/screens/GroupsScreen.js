@@ -3,6 +3,7 @@ import { useUser } from '../context/UseUser';
 import CreateGroup from '../components/CreateGroupPopup';
 import axios from 'axios';
 import '../GroupsScreen.css';
+import { useNavigate } from 'react-router-dom';
 
 const url = process.env.REACT_APP_API_URL;
 
@@ -12,6 +13,7 @@ const GroupsScreen = () => {
   const [groupName, setGroupName] = useState("");
   const { user } = useUser();
   const [groups, setGroups] = useState([]);
+  const navigate = useNavigate();
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -45,7 +47,7 @@ const GroupsScreen = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(url + '/groups/create/group', {
+      const response = await axios.post(url + '/groups/create', {
         name: groupName,
         ownerid: user.userid,
       });
@@ -57,6 +59,10 @@ const GroupsScreen = () => {
     } catch (error) {
       console.error("Error creating group:", error.response?.data || error.message);
     }
+  };
+
+  const handleOpenGroup = (groupId) => {
+    navigate(`/group/${groupId}`);
   };
 
   return (
@@ -89,7 +95,7 @@ const GroupsScreen = () => {
         groupName={groupName}
         setGroupName={setGroupName}
         handleSubmit={handleSubmit}
-      />
+      /> 
       <div className="sort-box">
         <select className="form-select" onChange={sortGroups}>
           <option value="name">Sort by Name</option>
@@ -101,7 +107,8 @@ const GroupsScreen = () => {
           groups.map((group) => (
             <div className="group" key={group.groupid}>
               <h2>{group.name}</h2>
-              <button className="btn btn-primary">Send request to join</button> {/* Lisätty luokka */}
+              <button className="btn btn-primary">Send request to join</button>
+              <button className="btn btn-primary" onClick={() => handleOpenGroup(group.groupid)}>Group info</button>
             </div>
           ))
         ) : (
