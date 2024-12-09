@@ -17,8 +17,8 @@ const CreateGroup = ({ isOpen, closeModal, groupName, setGroupName, handleSubmit
               required
             />
           </div>
-          <button type="submit">Create</button>
-          <button type="button" onClick={closeModal}>
+          <button type="submit" className="btn btn-primary">Create</button>
+          <button type="button" className="btn btn-primary" onClick={closeModal}>
             Cancel
           </button>
         </form>

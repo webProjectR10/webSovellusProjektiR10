@@ -41,13 +41,20 @@ li a {
 
 button {
   background-color: #00AAFF;
+  color: black;
   margin-left: 10px;
-  border-radius: 10px;
-  padding: 10px;
+  border-radius: 5px; 
+  padding: 10px 20px;
   width: auto;
   cursor: pointer;
   text-decoration: none; 
+  border: none;
 }
+button:hover {
+  background-color: #0088cc; 
+  color: white; 
+}
+
 
 button a {
   color: black;

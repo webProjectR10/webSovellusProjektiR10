@@ -1,4 +1,4 @@
-import '../App.css';
+import '../HomeScreen.css';
 import React, { useEffect, useState,} from "react";
 import MovieList from "../components/MovieList";
 import Search from "../components/Search";
