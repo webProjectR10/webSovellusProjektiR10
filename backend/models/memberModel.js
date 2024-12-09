@@ -13,4 +13,11 @@ const getGroupsByUser = async (userid) => {
     [userid]
   );
 };
-export { getMembersByGroup, getGroupsByUser };
+
+const deleteUserFromGroup = async (userid, groupid) => {
+  return await pool.query(
+    "DELETE FROM members WHERE userID = $1 AND groupid = $2",
+    [userid, groupid]
+  );
+};
+export { getMembersByGroup, getGroupsByUser, deleteUserFromGroup };

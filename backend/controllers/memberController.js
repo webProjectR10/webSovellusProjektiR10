@@ -1,5 +1,9 @@
 import { ApiError } from "../helpers/ApiError.js";
-import { getMembersByGroup, getGroupsByUser } from "../models/memberModel.js";
+import {
+  getMembersByGroup,
+  getGroupsByUser,
+  deleteUserFromGroup,
+} from "../models/memberModel.js";
 
 const handleGetMembersByGroup = async (req, res, next) => {
   try {
@@ -22,4 +26,24 @@ const handleGetGroupsByUser = async (req, res, next) => {
   }
 };
 
-export { handleGetMembersByGroup, handleGetGroupsByUser };
+const handleDeleteUserFromGroup = async (req, res, next) => {
+  try {
+    const userid = req.body.userid;
+    const groupid = req.body.groupid;
+    const result = await deleteUserFromGroup(userid, groupid);
+    if (result.rows === 0) {
+      return next(new ApiError("user or group not found", 404));
+    }
+    return res
+      .status(200)
+      .json({ message: "User successfully deleted from group" });
+  } catch (error) {
+    return next(new ApiError(error.message));
+  }
+};
+
+export {
+  handleGetMembersByGroup,
+  handleGetGroupsByUser,
+  handleDeleteUserFromGroup,
+};
