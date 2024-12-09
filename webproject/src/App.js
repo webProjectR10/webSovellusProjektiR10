@@ -5,6 +5,7 @@ import { FinnkinoProvider } from "./context/FinnkinoContext";
 import HomeScreen from './screens/HomeScreen';
 import Finnkino from './screens/FinnKino';
 import GroupsScreen from './screens/GroupsScreen';
+import GroupDetailsPage from './components/GroupDetailsPage';
 import NavBar from './components/NavBar'; // Import Navbar
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -37,6 +38,7 @@ function App() {
             </ProtectedRoute>
           )} />
           <Route path="/schedule" element={<Finnkino />} />
+          <Route path="/group/:groupId" element={<GroupDetailsPage />} />
           </Routes>
         </Router>
         </FinnkinoProvider>

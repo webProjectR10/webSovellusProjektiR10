@@ -37,11 +37,11 @@ export default function Authentication({authenticationMode}){
                     <>
                         <div className="form-group">
                             <label>First name</label>
-                            <input type="text" value={user.firstname} onChange={e => setUser({ ...user, firstname: e.target.value })} />
+                            <input type="text" value={user.fName} onChange={e => setUser({ ...user, fName: e.target.value })} />
                         </div>
                         <div className="form-group">
                             <label>Last name</label>
-                            <input type="text" value={user.lastname} onChange={e => setUser({ ...user, lastname: e.target.value })} />
+                            <input type="text" value={user.lName} onChange={e => setUser({ ...user, lName: e.target.value })} />
                         </div>
                     </>
                 )}
