@@ -1,0 +1,65 @@
+.authentication-container {
+  max-width: 400px;
+  margin: 36px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  margin-top: 36px;
+}
+
+.authentication-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.authentication-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.authentication-container .form-group {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.authentication-container label {
+  margin-right: 10px;
+  width: 100px;
+  text-align: left;
+}
+
+.authentication-container input {
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.authentication-container button {
+  text-align: center;
+  padding: 10px;
+  background-color: #00AAFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+  margin-left: 10px;
+  width: 85%;
+}
+
+.authentication-container button:hover {
+  background-color: #0088cc;
+}
+
+.authentication-container a {
+  text-align: center;
+  display: block;
+  margin-top: 10px;
+  color: #00AAFF;
+  margin-top: 15px;
+}
