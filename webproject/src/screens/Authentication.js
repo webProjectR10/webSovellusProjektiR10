@@ -2,6 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import React from 'react'
 import { useUser } from "../context/UseUser"
 import '../Authentication.css';
+import { useEffect } from 'react'
 
 
 
@@ -29,6 +30,7 @@ export default function Authentication({authenticationMode}){
             alert(message)
         }
     }
+
     return (
         <div className="authentication-container">
             <h3>{authenticationMode === AuthenticationMode.Login ? 'Sign in' : 'Sign up'}</h3>
@@ -37,11 +39,11 @@ export default function Authentication({authenticationMode}){
                     <>
                         <div className="form-group">
                             <label>First name</label>
-                            <input type="text" value={user.firstname} onChange={e => setUser({ ...user, firstname: e.target.value })} />
+                            <input type="text" value={user.fName} onChange={e => setUser({ ...user, fName: e.target.value })} />
                         </div>
                         <div className="form-group">
                             <label>Last name</label>
-                            <input type="text" value={user.lastname} onChange={e => setUser({ ...user, lastname: e.target.value })} />
+                            <input type="text" value={user.lName} onChange={e => setUser({ ...user, lName: e.target.value })} />
                         </div>
                     </>
                 )}
