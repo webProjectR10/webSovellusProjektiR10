@@ -6,14 +6,14 @@ const url = process.env.REACT_APP_API_URL;
 
 export default function UserProvider({children}) {
     const userFromSessionStorage = sessionStorage.getItem('user')
-    const [user, setUser] = useState(userFromSessionStorage ? JSON.parse(userFromSessionStorage): {first_name: '',last_name: '',email: '',password: ''})
+    const [user, setUser] = useState(userFromSessionStorage ? JSON.parse(userFromSessionStorage): {fName: '',lName: '',email: '',password: ''})
 
     const signUp = async() => {
         const json = JSON.stringify(user)
         const headers = {headers: {'Content-type' : 'application/json'}}
         try{
             await axios.post(url + '/users/register',json,headers)
-            setUser({first_name: '',last_name: '',email: '',password: ''})
+            setUser({fName: '',lName: '',email: '',password: ''})
         }   catch(error){
             throw error
         }
