@@ -7,6 +7,13 @@ const getMembersByGroup = async (groupid) => {
   );
 };
 
+const addMember = async (userid, groupid) => {
+  return await pool.query(
+    "insert into members (userid, groupid) values ($1,$2) returning *",
+    [userid, groupid]
+  );
+};
+
 const getGroupsByUser = async (userid) => {
   return await pool.query(
     "SELECT members.memberid, members.userid, members.groupid, users.first_name, users.last_name, groups.name, groups.groupid FROM members LEFT JOIN groups ON groups.groupid = members.groupid LEFT JOIN users ON users.userid = members.userid WHERE members.userid = $1",
@@ -20,4 +27,4 @@ const deleteUserFromGroup = async (userid, groupid) => {
     [userid, groupid]
   );
 };
-export { getMembersByGroup, getGroupsByUser, deleteUserFromGroup };
+export { getMembersByGroup, getGroupsByUser, deleteUserFromGroup, addMember };

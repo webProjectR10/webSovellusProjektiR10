@@ -12,7 +12,28 @@ describe("POST register", () => {
   const lName = "jee";
   const email = "register@foo.com";
   const password = "Register123";
+  const badPassword = "register";
 
+  it("should not register with invalid password", async function () {
+    const response = await fetch(base_url + "users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        fName: fName,
+        lName: lName,
+        email: email,
+        password: badPassword,
+      }),
+    });
+
+    const data = await response.json();
+
+    expect(response.status).to.equal(400, data.error);
+    expect(data).to.be.an("object");
+    expect(data).to.include.all.keys("error");
+  });
   it("should register with valid email and password", async function () {
     const response = await fetch(base_url + "users/register", {
       method: "POST",
@@ -39,10 +60,26 @@ describe("POST register", () => {
     );
   });
 });
+
 let authToken;
 describe("POST login", () => {
   const email = "register@foo.com";
   const password = "Register123";
+  const wrongPassword = "register";
+
+  it("should not login with wrong password", async () => {
+    const response = await fetch(base_url + "users/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: email, password: wrongPassword }),
+    });
+    const data = await response.json();
+    expect(response.status).to.equal(500);
+    expect(data).to.be.an("object");
+    expect(data).to.include.all.keys("error");
+  });
   it("should login with valid credentials", async () => {
     const response = await fetch(base_url + "users/login", {
       method: "POST",

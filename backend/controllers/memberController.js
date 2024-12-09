@@ -3,6 +3,7 @@ import {
   getMembersByGroup,
   getGroupsByUser,
   deleteUserFromGroup,
+  addMember,
 } from "../models/memberModel.js";
 
 const handleGetMembersByGroup = async (req, res, next) => {
@@ -14,6 +15,22 @@ const handleGetMembersByGroup = async (req, res, next) => {
     });
   } catch (error) {
     return next(new ApiError(error.message));
+  }
+};
+
+const handleAddMember = async (req, res, next) => {
+  try {
+    const memberFromDb = await addMember(req.body.userid, req.body.groupid);
+
+    const member = memberFromDb.rows[0];
+
+    return res.status(201).json({
+      memberid: member.memberid,
+      userid: member.userid,
+      groupid: member.groupid,
+    });
+  } catch (error) {
+    return next(new ApiError(error.message, 400));
   }
 };
 
@@ -46,4 +63,5 @@ export {
   handleGetMembersByGroup,
   handleGetGroupsByUser,
   handleDeleteUserFromGroup,
+  handleAddMember,
 };
