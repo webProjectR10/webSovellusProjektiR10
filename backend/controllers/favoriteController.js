@@ -27,6 +27,10 @@ const handleGetFavoritesByUserId = async (req, res, next) => {
 
 const handleAddFavorite = async (req, res, next) => {
   try {
+    if (!req.body.userID || !req.body.movieid) {
+      return next(new ApiError("No user or movie provided", 400));
+    }
+
     const favoriteFromDb = await addFavorite(req.body.userid, req.body.movieid);
 
     const favorite = favoriteFromDb.rows[0];

@@ -9,7 +9,7 @@ import { ApiError } from "../helpers/ApiError.js";
 const handleAddReview = async (req, res, next) => {
   try {
     if (!req.body.stars) {
-      return next(new ApiError("Review must have rating", 400));
+      return next(new ApiError("Review must have rating", 401));
     }
     const reviewFromDb = await addReview(
       req.body.userid,

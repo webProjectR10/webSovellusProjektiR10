@@ -30,7 +30,7 @@ describe("POST register", () => {
 
     const data = await response.json();
 
-    expect(response.status).to.equal(400, data.error);
+    expect(response.status).to.equal(225, data.error);
     expect(data).to.be.an("object");
     expect(data).to.include.all.keys("error");
   });
@@ -76,7 +76,7 @@ describe("POST login", () => {
       body: JSON.stringify({ email: email, password: wrongPassword }),
     });
     const data = await response.json();
-    expect(response.status).to.equal(500);
+    expect(response.status).to.equal(401);
     expect(data).to.be.an("object");
     expect(data).to.include.all.keys("error");
   });
