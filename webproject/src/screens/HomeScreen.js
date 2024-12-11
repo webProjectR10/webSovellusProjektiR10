@@ -4,7 +4,7 @@ import MovieList from "../components/MovieList";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
 import { useMovieContext } from "../context/MovieContext";
-
+import MovieInfo from "../components/movieInfo"
 const token = process.env.REACT_APP_BEARER_TOKEN;
 
 const HomeScreen = () => {
@@ -22,6 +22,8 @@ const HomeScreen = () => {
   const [pageCount, setPageCount] = useState(0);
   const [inputValue, setInputValue] = useState(searchQuery);
   const [allMovies, setAllMovies] = useState([]); // Lista kaikille hakutuloksille
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.backgroundColor = "#1A1A1A"; // Tumma tausta
