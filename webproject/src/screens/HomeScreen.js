@@ -1,7 +1,7 @@
-import '../HomeScreen.css';
+import "../HomeScreen.css";
 import React, { useEffect, useState, useCallback } from "react";
 import MovieList from "../components/MovieList";
-import MovieInfo from '../components/movieInfo';
+import MovieInfo from "../components/movieInfo";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
 import { useMovieContext } from "../context/MovieContext";
@@ -9,13 +9,23 @@ import { useMovieContext } from "../context/MovieContext";
 const token = process.env.REACT_APP_BEARER_TOKEN;
 
 const HomeScreen = () => {
-  const { movies, setMovies, page, setPage, searchQuery, setSearchQuery, filter, setFilter } = useMovieContext();
+  const {
+    movies,
+    setMovies,
+    page,
+    setPage,
+    searchQuery,
+    setSearchQuery,
+    filter,
+    setFilter,
+  } = useMovieContext();
   const [genres, setGenres] = useState({});
   const [pageCount, setPageCount] = useState(0);
-  const [inputValue, setInputValue] = useState(searchQuery)
+  const [inputValue, setInputValue] = useState(searchQuery);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-    
+  const [allMovies, setAllMovies] = useState([]);
+
   const openModal = (movieId) => {
     setSelectedMovieId(movieId);
     setIsModalOpen(true);
@@ -27,9 +37,9 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
-    document.body.style.backgroundColor = '#1A1A1A'; // Tumma tausta
+    document.body.style.backgroundColor = "#1A1A1A"; // Tumma tausta
     return () => {
-      document.body.style.backgroundColor = '';
+      document.body.style.backgroundColor = "";
     };
   }, []);
 
@@ -47,7 +57,7 @@ const HomeScreen = () => {
         });
         setGenres(genreMap);
       })
-      .catch((error) => console.error('Error fetching genres:', error));
+      .catch((error) => console.error("Error fetching genres:", error));
   };
 
   const fetchMovies = useCallback(async () => {
@@ -75,7 +85,7 @@ const HomeScreen = () => {
 
       const response = await fetch(url, {
         headers: {
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
@@ -96,7 +106,9 @@ const HomeScreen = () => {
   }, [filter, genres, searchQuery, setMovies]);
 
   const handleSortByRating = () => {
-    const sortedMovies = [...allMovies].sort((a, b) => b.vote_average - a.vote_average);
+    const sortedMovies = [...allMovies].sort(
+      (a, b) => b.vote_average - a.vote_average
+    );
     setAllMovies(sortedMovies);
     setPage(1);
     setMovies(sortedMovies.slice(0, 25)); // Näytä ensimmäiset 25 tulosta
@@ -132,9 +144,19 @@ const HomeScreen = () => {
   return (
     <div className="home-container">
       <h3>Search Movies</h3>
-      <Search query={inputValue} setQuery={setInputValue} filter={filter} setFilter={handleFilterChange} handleSearch={handleSearch} />
+      <Search
+        query={inputValue}
+        setQuery={setInputValue}
+        filter={filter}
+        setFilter={handleFilterChange}
+        handleSearch={handleSearch}
+      />
       <MovieList movies={movies} openModal={openModal} />
-      <MovieInfo isOpen={isModalOpen} closeModal={closeModal} movieId={selectedMovieId} />
+      <MovieInfo
+        isOpen={isModalOpen}
+        closeModal={closeModal}
+        movieId={selectedMovieId}
+      />
       <Pagination pageCount={pageCount} setPage={setPage} currentPage={page} />
     </div>
   );
