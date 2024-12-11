@@ -60,7 +60,7 @@ if (!response.ok) {
       favoriteMovies: [...(Array.isArray(user.favoriteMovies) ? user.favoriteMovies : []), movie] 
     });
     setIsModalOpen(false);
-    await axios.post(`${url}/favorite/add`, { userid: user.userid, movieid: movie.movieid }, { headers: { 'Content-Type': 'application/json' } });
+    await axios.post(`${url}/favorite/add`,  { userId: user.userid, movieId: movie.id },  { headers: { 'Content-Type': 'application/json' } });
   };
 
   const handleLogout = () => {
