@@ -50,7 +50,9 @@ const createGroup = async (req, res, next) => {
 
 const handleGroupDelete = async (req, res, next) => {
   try {
-    const result = await deleteGroup(req.params.groupid);
+    const groupid = req.body.groupid;
+    const ownerid = req.body.ownerid;
+    const result = await deleteGroup(groupid, ownerid);
     if (result.rows === 0) {
       return next(new ApiError("Group not found", 404));
     }
