@@ -20,6 +20,9 @@ const handleGetMembersByGroup = async (req, res, next) => {
 
 const handleAddMember = async (req, res, next) => {
   try {
+    if (!req.body.userid.length || !req.body.groupid) {
+      return next(new ApiError("no user or group provided", 400));
+    }
     const memberFromDb = await addMember(req.body.userid, req.body.groupid);
 
     const member = memberFromDb.rows[0];

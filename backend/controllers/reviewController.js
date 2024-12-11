@@ -3,13 +3,14 @@ import {
   getReviews,
   getReviewById,
   deleteReview,
+  getReviewsByMovie,
 } from "../models/reviewModel.js";
 import { ApiError } from "../helpers/ApiError.js";
 
 const handleAddReview = async (req, res, next) => {
   try {
     if (!req.body.stars) {
-      return next(new ApiError("Review must have rating", 400));
+      return next(new ApiError("Review must have rating", 401));
     }
     const reviewFromDb = await addReview(
       req.body.userid,
@@ -77,10 +78,23 @@ const handleDeleteReview = async (req, res, next) => {
   }
 };
 
+const handleGetReviewByMovie = async (req, res, next) => {
+  try {
+    const result = await getReviewsByMovie(req.params.movieid);
+    if (result.rows === 0) {
+      return next(new ApiError("no reviews found", 404));
+    }
+    res.status(200).json(result.rows);
+  } catch (error) {
+    return next(new ApiError(error.message, 400));
+  }
+};
+
 export {
   handleAddReview,
   handleGetReviews,
   handleGetReviewById,
   handleUpdateReview,
   handleDeleteReview,
+  handleGetReviewByMovie,
 };

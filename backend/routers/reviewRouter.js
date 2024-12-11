@@ -1,15 +1,23 @@
 import { Router } from "express";
 
-import { handleGetReviewById, handleGetReviews, handleAddReview, handleDeleteReview } from "../controllers/reviewController.js"
+import {
+  handleGetReviewById,
+  handleGetReviews,
+  handleAddReview,
+  handleDeleteReview,
+  handleGetReviewByMovie,
+} from "../controllers/reviewController.js";
 
 const router = Router();
 
-router.get("/", handleGetReviews)
+router.get("/", handleGetReviews);
 
-router.get("/:reviewid", handleGetReviewById)
+router.get("/:reviewid", handleGetReviewById);
 
-router.post("/add", handleAddReview)
+router.get("/byMovie/:movieid", handleGetReviewByMovie);
 
-router.delete("/delete/:reviewid", handleDeleteReview)
+router.post("/add", handleAddReview);
+
+router.delete("/delete/:reviewid", handleDeleteReview);
 
 export default router;
