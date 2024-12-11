@@ -15,8 +15,8 @@ const getGroupById = async (groupid) => {
   return await pool.query("SELECT groupid, name, ownerid, first_name, last_name FROM groups LEFT JOIN users ON groups.ownerid = users.userid WHERE groupid = $1;", [groupid]);
 };
 
-const deleteGroup = async (groupid) => {
-  return await pool.query("DELETE FROM groups WHERE groupid = $1", [groupid]);
+const deleteGroup = async (groupid, ownerid) => {
+  return await pool.query("DELETE FROM groups WHERE groupid = $1 AND ownerid = $2", [groupid, ownerid]);
 };
 
 const updateGroup = async (groupid, name, ownerid) => {
