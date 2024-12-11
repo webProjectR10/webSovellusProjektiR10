@@ -1,6 +1,7 @@
 import '../HomeScreen.css';
 import React, { useEffect, useState,} from "react";
 import MovieList from "../components/MovieList";
+import MovieInfo from '../components/movieInfo';
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
 import { useMovieContext } from "../context/MovieContext";
@@ -13,7 +14,19 @@ const HomeScreen = () => {
   const [genres, setGenres] = useState({});
   const [pageCount, setPageCount] = useState(0);
   const [inputValue, setInputValue] = useState(searchQuery)
-  
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+    
+  const openModal = (movieId) => {
+    setSelectedMovieId(movieId);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setSelectedMovieId(null);
+    setIsModalOpen(false);
+  };
+
   useEffect(() => {
     
     document.body.style.backgroundColor = 'white';
@@ -95,7 +108,8 @@ const HomeScreen = () => {
     <div className="search-movies">
       <h3>Search Movies</h3>
       <Search query={inputValue} setQuery={setInputValue} filter={filter} setFilter={handleFilterChange} handleSearch={handleSearch} />
-      <MovieList movies={movies} />
+      <MovieList movies={movies} openModal={openModal} />
+      <MovieInfo isOpen={isModalOpen} closeModal={closeModal} movieId={selectedMovieId} />
       <Pagination pageCount={pageCount} setPage={setPage} currentPage={page} />
     </div>
   );

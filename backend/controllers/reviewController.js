@@ -12,6 +12,7 @@ const handleAddReview = async (req, res, next) => {
     if (!req.body.stars) {
       return next(new ApiError("Review must have rating", 401));
     }
+
     const reviewFromDb = await addReview(
       req.body.userid,
       req.body.movieid,
