@@ -1,0 +1,68 @@
+.profile-container {
+    background-color: #333333; 
+    max-width: 800px;
+    margin: 36px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    color: white; 
+  }
+  
+  .profile-box {
+    background-color: #444444; 
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-box .bio {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  .profile-box .account-created {
+    font-size: 14px;
+    color: #cccccc; 
+    margin-bottom: 20px;
+  }
+  
+  .profile-container button {
+    padding: 8px 16px; 
+    background-color: #00AAFF;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto; 
+  }
+  
+  
+  .profile-container button:hover {
+    background-color: #0088cc;
+    color: white;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #333333;
+    color: white;
+    resize: vertical;
+  }
