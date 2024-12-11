@@ -5,6 +5,7 @@ import MovieInfo from "../components/movieInfo";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
 import { useMovieContext } from "../context/MovieContext";
+import { useCallback } from 'react';
 
 const token = process.env.REACT_APP_BEARER_TOKEN;
 
@@ -60,28 +61,22 @@ const HomeScreen = () => {
       .catch((error) => console.error("Error fetching genres:", error));
   };
 
-  const fetchMovies = useCallback(async () => {
-    let allMovies = [];
-    let currentPage = 1;
-    let totalPages = 1;
-
-    while (currentPage <= totalPages) {
-      let url = `https://api.themoviedb.org/3/`;
-      if (filter === "name") {
-        url += `search/movie?query=${searchQuery}`;
-      } else if (filter === "category") {
-        const genreId = genres[searchQuery.toLowerCase()];
-        if (!genreId) {
-          console.error("Genre not found:", searchQuery);
-          setMovies([]);
-          setAllMovies([]); // Tyhjennä lista
-          return;
-        }
-        url += `discover/movie?with_genres=${genreId}`;
-      } else if (filter === "rating") {
-        url += `discover/movie?sort_by=vote_average.desc&vote_count.gte=200`;
+  const fetchMovies = useCallback(() => {
+    let url = `https://api.themoviedb.org/3/`;
+    if (filter === "name") {
+      url += `search/movie?query=${searchQuery}`;
+    } else if (filter === "category") {
+      const genreId = genres[searchQuery.toLowerCase()];
+      if (!genreId) {
+        console.error("Genre not found:", searchQuery);
+        setMovies([]);
+        return;
       }
-      url += `&include_adult=false&include_video=false&language=en-US&page=${currentPage}`;
+      url += `discover/movie?with_genres=${genreId}`;
+    } else if (filter === "rating") {
+      url += `discover/movie?sort_by=vote_average.desc&vote_count.gte=200`;
+    }
+    url += `&include_adult=false&include_video=false&language=en-US&page=${page}`;
 
       const response = await fetch(url, {
         headers: {
@@ -125,24 +120,14 @@ const HomeScreen = () => {
   const handleSearch = () => {
     setPage(1);
     setSearchQuery(inputValue);
-    setAllMovies([]); // Tyhjennä lista
   };
-
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
-    setMovies([]);
-    setAllMovies([]); // Tyhjennä lista
-    setPage(1);
-  };
-
-  useEffect(() => {
-    if (allMovies.length > 0) {
-      setMovies(allMovies.slice((page - 1) * 25, page * 25)); // Päivitä näytettävät tulokset sivun mukaan
-    }
-  }, [page, allMovies]);
-
+    setMovies([])
+    setPage(1)
+  }
   return (
-    <div className="home-container">
+    <div className="search-movies">
       <h3>Search Movies</h3>
       <Search
         query={inputValue}
@@ -162,4 +147,7 @@ const HomeScreen = () => {
   );
 };
 
+
+
 export default HomeScreen;
+
