@@ -39,7 +39,7 @@ const GroupsScreen = () => {
   const searchGroups = (event) => {
     if (event.key === 'Enter') {
       console.log('Searching groups...');
-  
+       
     }
   };
 
