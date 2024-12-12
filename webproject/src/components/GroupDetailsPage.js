@@ -4,6 +4,8 @@ import axios from 'axios';
 import '../GroupDetailsPage.css'; 
 import { useUser } from '../context/UserContext';
 
+//TODO: tarkista onko käyttäjä ryhmän jäsen, jos ei niin -> navigate back to groupscreen
+
 const GroupDetailsPage = () => {
   const { groupId } = useParams()
   const { user } = useUser();
@@ -44,16 +46,30 @@ const GroupDetailsPage = () => {
       await axios.delete(`${process.env.REACT_APP_API_URL}/members/delete`, {
         data: { userid: memberid, groupid: groupId }
       });
-      setMembers(members.filter((member) => member.memberid !== memberid));
+      setMembers(members.filter((member) => member.userid !== memberid));
       console.log("Member removed successfully");
     } catch (error) {
       console.error("Error removing member:", error);
     }
   };
 
-  const handleAcceptRequest = async (requestid) => {
+  const handleLeaveGroup = async () => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/members/delete`, {
+        data: { userid: user.userid, groupid: groupId }
+      });
+      setMembers(members.filter((member) => member.userid !== user.userid));
+      console.log("You have successfully left the group.");
+      navigate('/groupsscreen');
+    } catch (error) {
+      console.error("Error leaving group:", error);
+    }
+  };
+
+  const handleAcceptRequest = async (requestid, newMember) => {
     try {
       await axios.post(`${process.env.REACT_APP_API_URL}/grouprequest/${requestid}/accept`);
+      setMembers((prevMembers) => [...prevMembers, newMember]);
       setGroupInvitations((prev) => prev.filter((req) => req.requestid !== requestid));
       console.log("Request accepted");
     } catch (error) {
@@ -107,6 +123,14 @@ const GroupDetailsPage = () => {
                   Remove
                 </button>
               )}
+              {!isOwner && member.userid === user.userid && (
+                <button
+                  className="btn btn-warning"
+                  onClick={handleLeaveGroup}
+                >
+                  Leave
+                </button>
+              )}
             </li>
           ))
         ) : (
@@ -133,7 +157,7 @@ const GroupDetailsPage = () => {
                     <div>
                       <button
                         className="btn btn-success"
-                        onClick={() => handleAcceptRequest(invitation.requestid)}
+                        onClick={() => handleAcceptRequest(invitation.requestid, invitation)}
                       >
                         Accept
                       </button>
