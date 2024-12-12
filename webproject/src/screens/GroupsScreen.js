@@ -13,6 +13,7 @@ const GroupsScreen = () => {
   const [groupName, setGroupName] = useState("");
   const { user } = useUser();
   const [groups, setGroups] = useState([]);
+  const [userGroups, setUserGroups] = useState([]);
   const navigate = useNavigate();
 
   const openModal = () => setIsModalOpen(true);
@@ -27,9 +28,19 @@ const GroupsScreen = () => {
     }
   };
 
+  const fetchUserGroups = async () => {
+    try {
+      const response = await axios.get(`${url}/members/byUser/${user.userid}`);
+      setUserGroups(response.data); 
+    } catch (error) {
+      console.error('Error fetching user groups:', error);
+    }
+  };
+
   useEffect(() => {
     fetchGroups();
-  }, []);
+    fetchUserGroups();
+  }, [user.userid]);
 
   const sortGroups = (e) => {
     console.log(`Sort by: ${e.target.value}`);
@@ -117,17 +128,32 @@ const GroupsScreen = () => {
       </div>
       <section className="group-list">
         {groups.length > 0 ? (
-          groups.map((group) => (
-            <div className="group" key={group.groupid}>
-              <h2>{group.name}</h2>
-              {user.userid !== group.ownerid && (
-              <button 
-              className="btn btn-primary" onClick={() => handleRequestToJoin(group.groupid)}>Send request to join
-              </button>
-              )}
-              <button className="btn btn-primary" onClick={() => handleOpenGroup(group.groupid)}>Group info</button>
-            </div>
-          ))
+          groups.map((group) => {
+            const isMember = userGroups.some((userGroup) => userGroup.groupid === group.groupid);
+            const isOwner = user.userid === group.ownerid;
+
+            return (
+              <div className="group" key={group.groupid}>
+                <h2>{group.name}</h2>
+
+                {!isOwner && !isMember && (
+                  <button 
+                    className="btn btn-primary" 
+                    onClick={() => handleRequestToJoin(group.groupid)}>
+                    Send request to join
+                  </button>
+                )}
+
+                {(isMember || isOwner) && (
+                  <button 
+                    className="btn btn-primary" 
+                    onClick={() => handleOpenGroup(group.groupid)}>
+                    Group info
+                  </button>
+                )}
+              </div>
+            );
+          })
         ) : (
           <p>No groups available</p>
         )}

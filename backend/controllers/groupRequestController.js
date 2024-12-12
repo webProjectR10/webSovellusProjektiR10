@@ -69,9 +69,7 @@ const acceptRequest = async (req, res, next) => {
       if (request.rowCount === 0) {
         return next(new ApiError("Request not found", 404));
       }
-      console.log(request.rows[0])
       const { userid, groupid } = request.rows[0];
-      console.log(userid, groupid);
   
       const addMemberResponse = await addMember(userid, groupid );
   
