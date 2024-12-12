@@ -9,14 +9,19 @@ const GroupDetailsPage = () => {
   const { user } = useUser();
   const [groupDetails, setGroupDetails] = useState(null);
   const [groupInvitations, setGroupInvitations] = useState([]);
+  const [members, setMembers] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchGroupDetailsAndInvitations = async () => {
+    const fetchGroupDetails = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/groups/${groupId}`);
         const groupData = response.data;
         setGroupDetails(groupData);
+
+        const membersResponse = await axios.get(`${process.env.REACT_APP_API_URL}/members/${groupId}`);
+        setMembers(membersResponse.data.members);
+
         const isOwner = user.userid === groupData.ownerid;
         if (isOwner) {
           const invitationsResponse = await axios.get(`${process.env.REACT_APP_API_URL}/grouprequest/group/${groupId}`);
@@ -27,12 +32,24 @@ const GroupDetailsPage = () => {
       }
     };
 
-    fetchGroupDetailsAndInvitations();
+    fetchGroupDetails();
   }, [groupId, user.userid]);
 
   if (!groupDetails) {
     return <p>Loading...</p>;
   }
+
+  const handleRemoveMember = async (memberid) => {
+    try {
+      await axios.delete(`${process.env.REACT_APP_API_URL}/members/delete`, {
+        data: { userid: memberid, groupid: groupId }
+      });
+      setMembers(members.filter((member) => member.memberid !== memberid));
+      console.log("Member removed successfully");
+    } catch (error) {
+      console.error("Error removing member:", error);
+    }
+  };
 
   const handleAcceptRequest = async (requestid) => {
     try {
@@ -75,6 +92,29 @@ const GroupDetailsPage = () => {
       <h1>{groupDetails.name}</h1>
       <p>Owner: {groupDetails.first_name} {groupDetails.last_name}</p>
       <p>Group ID: {groupDetails.groupid}</p>
+
+      <h2>Current Members:</h2>
+      <ul>
+        {members.length > 0 ? (
+          members.map((member) => (
+            <li key={member.memberid}>
+              {member.first_name} {member.last_name}
+              {isOwner && (
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleRemoveMember(member.userid)}
+                >
+                  Remove
+                </button>
+              )}
+            </li>
+          ))
+        ) : (
+          <p>No members yet.</p>
+        )}
+      </ul>
+
+
       {isOwner && (
         <>
           <button className="btn btn-primary" onClick={handleDeleteGroup}>

@@ -76,6 +76,8 @@ const GroupsScreen = () => {
     navigate(`/group/${groupId}`);
   };
 
+  /* TODO: tällä hetkellä voi lähettää niin monta requestia ku haluaa samaan ryhmään
+  ku ei ole checkkiä onko sama käyttäjä lähettäny pyyntöä samaan ryhmään aikasemmin*/
   const handleRequestToJoin = async (groupId) => {
     try {
       const response = await axios.post(url + '/grouprequest/create', {
