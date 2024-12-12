@@ -35,3 +35,10 @@ CREATE TABLE review (
     stars INT,
     date_given TIMESTAMP DEFAULT NOW()
 );
+
+CREATE TABLE group_requests (
+    requestID SERIAL PRIMARY KEY,
+    userID INT REFERENCES users(userID) ON DELETE CASCADE,
+    groupID INT REFERENCES groups(groupID) ON DELETE CASCADE,
+    UNIQUE (userID, groupID)
+);

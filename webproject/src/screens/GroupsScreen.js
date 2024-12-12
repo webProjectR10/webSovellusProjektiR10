@@ -65,6 +65,19 @@ const GroupsScreen = () => {
     navigate(`/group/${groupId}`);
   };
 
+  const handleRequestToJoin = async (groupId) => {
+    try {
+      const response = await axios.post(url + '/grouprequest/create', {
+        user: user.userid,
+        groupid: groupId
+      });
+      console.log("Request sent successfully:", response.data);
+    } catch (error) {
+      console.error("Error sending join request:", error);
+    }
+    console.log(user.userid, groupId);
+  };
+
   return (
     <div className="GroupsScreen">
       <div className="search-box">
@@ -107,7 +120,11 @@ const GroupsScreen = () => {
           groups.map((group) => (
             <div className="group" key={group.groupid}>
               <h2>{group.name}</h2>
-              <button className="btn btn-primary">Send request to join</button>
+              {user.userid !== group.ownerid && (
+              <button 
+              className="btn btn-primary" onClick={() => handleRequestToJoin(group.groupid)}>Send request to join
+              </button>
+              )}
               <button className="btn btn-primary" onClick={() => handleOpenGroup(group.groupid)}>Group info</button>
             </div>
           ))

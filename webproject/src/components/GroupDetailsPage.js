@@ -41,7 +41,7 @@ const GroupDetailsPage = () => {
     }
   }
 
-  const isOwner = user.userid == groupDetails.ownerid;
+  const isOwner = user.userid === groupDetails.ownerid;
 
   return (
     <div className="GroupDetailsPage">
