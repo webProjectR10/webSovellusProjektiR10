@@ -4,6 +4,8 @@ import {
   handleGetRequestsByGroup,
   handleGetRequestsByUser,
   handleDeleteRequest,
+  acceptRequest,
+  rejectRequest
 } from "../controllers/groupRequestController.js";
 
 const router = Router();
@@ -15,5 +17,8 @@ router.get("/user/:userid", handleGetRequestsByUser);
 router.post("/create", createRequest);
 
 router.delete("/:requestid", handleDeleteRequest);
+
+router.post("/:requestid/accept", acceptRequest);
+router.post("/:requestid/reject", rejectRequest);
 
 export default router;

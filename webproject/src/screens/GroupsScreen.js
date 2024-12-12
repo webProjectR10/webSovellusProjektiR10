@@ -68,7 +68,7 @@ const GroupsScreen = () => {
   const handleRequestToJoin = async (groupId) => {
     try {
       const response = await axios.post(url + '/grouprequest/create', {
-        user: user.userid,
+        userid: user.userid,
         groupid: groupId
       });
       console.log("Request sent successfully:", response.data);

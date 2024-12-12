@@ -3,8 +3,10 @@ import {
   insertGroupRequest,
   getGroupRequestsByGroup,
   getGroupRequestsByUser,
+  getGroupRequestByRequestId,
   deleteGroupRequest,
 } from "../models/groupRequestModel.js";
+import { addMember } from "../models/memberModel.js";
 
 const handleGetRequestsByGroup = async (req, res, next) => {
   try {
@@ -59,9 +61,51 @@ const handleDeleteRequest = async (req, res, next) => {
   }
 };
 
+const acceptRequest = async (req, res, next) => {
+    try {
+      const requestid = parseInt(req.params.requestid);
+      const request = await getGroupRequestByRequestId(requestid);
+  
+      if (request.rowCount === 0) {
+        return next(new ApiError("Request not found", 404));
+      }
+      console.log(request.rows[0])
+      const { userid, groupid } = request.rows[0];
+      console.log(userid, groupid);
+  
+      const addMemberResponse = await addMember(userid, groupid );
+  
+      await deleteGroupRequest(requestid);
+  
+      return res.status(200).json({
+        message: "Request accepted and user added to the group",
+        member: addMemberResponse,
+      });
+    } catch (error) {
+      return next(new ApiError(error.message, 400));
+    }
+  };
+
+  const rejectRequest = async (req, res, next) => {
+    try {
+      const { requestid } = req.params;
+      const result = await deleteGroupRequest(requestid);
+  
+      if (result.rowCount === 0) {
+        return next(new ApiError("Request not found", 404));
+      }
+  
+      return res.status(200).json({ message: "Request rejected" });
+    } catch (error) {
+      return next(new ApiError(error.message, 400));
+    }
+  };
+
 export {
   handleGetRequestsByGroup,
   handleGetRequestsByUser,
   createRequest,
   handleDeleteRequest,
+  acceptRequest,
+  rejectRequest
 };

@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users, groups, members, favorites, review;
+DROP TABLE IF EXISTS users, groups, members, favorites, review, group_requests;
 
 CREATE TABLE users (
     userID SERIAL PRIMARY KEY,
