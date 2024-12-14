@@ -6,14 +6,14 @@ const url = process.env.REACT_APP_API_URL;
 
 export const UserProvider = ({ children }) => {
   const userFromSessionStorage = sessionStorage.getItem('user');
-  const [user, setUser] = useState(userFromSessionStorage ? JSON.parse(userFromSessionStorage) : { first_name: '', last_name: '', email: '', password: '', favoriteMovies: [] });
+  const [user, setUser] = useState(userFromSessionStorage ? JSON.parse(userFromSessionStorage) : { first_name: '', last_name: '', email: '', password: '', favoriteMovies: [], userid: '' });
 
   const signUp = async () => {
     const json = JSON.stringify(user);
     const headers = { headers: { 'Content-type': 'application/json' } };
     try {
       await axios.post(url + '/users/register', json, headers);
-      setUser({ first_name: '', last_name: '', email: '', password: '', created_at: '' });
+      setUser({ first_name: '', last_name: '', email: '', password: '', created_at: '', });
     } catch (error) {
       throw error;
     }
@@ -29,7 +29,7 @@ export const UserProvider = ({ children }) => {
     } catch (error) {
       setUser({ email: '', password: '' });
       throw error;
-    }
+    } 
   };
 
   const logout = () => {

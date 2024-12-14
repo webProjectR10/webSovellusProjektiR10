@@ -4,6 +4,7 @@ import { useUser } from '../context/UseUser';
 import axios from 'axios';
 import '../Profile.css';
 
+
 const Profile = () => {
   const { user, setUser, logout } = useUser();
   const navigate = useNavigate();
@@ -12,17 +13,34 @@ const Profile = () => {
   const [favoriteMovies, setFavoriteMovies] = useState(Array.isArray(user.favoriteMovies) ? user.favoriteMovies : []);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  useEffect(() => {
+    fetchFavorites();
+  }, [user.favoriteMovies]);
+  const fetchFavorites = async () => {
+    const url = "http://localhost:3001"
+    const apiKey = process.env.REACT_APP_BEARER_TOKEN;
+    const userid = JSON.parse(sessionStorage.getItem("user")).userid;
+    const response = await fetch(`${url}/favorite/${userid}`)
+    const result = await response.json()
 
+    const movieTitles = [];
+    for (let i = 0; i < result.length; i++) {
+      const movieResponse = await fetch(`https://api.themoviedb.org/3/movie/${result[i].movieid}?language=en-US`,{headers:{Authorization: `Bearer ${apiKey}`}});
+      const movie = await movieResponse.json();
+      const movieTitle = movie.title;
+      movieTitles.push(movieTitle);
+    }
+    setFavoriteMovies(movieTitles);
+  }
   const fetchSearchResults = useCallback(async () => {
     const apiKey = process.env.REACT_APP_BEARER_TOKEN;
     if (!apiKey) {
       console.error('API key is missing');
       return;
     }
-
     try {
       console.log(`Searching for movies with query: ${searchQuery}`);
-const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${searchQuery}`, {
+  const response = await fetch(`https://api.themoviedb.org/3/search/movie?query=${searchQuery}`, {
   headers: {
     Authorization: `Bearer ${apiKey}`
   }
@@ -69,8 +87,10 @@ if (!response.ok) {
   };
 
   const handleDeleteProfile = async () => {
+    const url = process.env.REACT_APP_API_URL;
     try {
-      await axios.delete('/users/delete', { data: { userId: user.userid } });
+      const userid = JSON.parse(sessionStorage.getItem("user")).userid;
+      await axios.delete(`${url}/users/delete/${userid}`);
       logout();
       navigate('/');
     } catch (error) {
@@ -86,7 +106,7 @@ if (!response.ok) {
 
       <div className="profile-box">
         <p className="favorite-movies">
-          Favorite Movies: {favoriteMovies.length > 0 ? favoriteMovies.map(movie => movie.title).join(', ') : "No favorite movies yet."}
+          Favorite Movies: {favoriteMovies.length > 0 ? favoriteMovies.join(', ') : "No favorite movies yet."}
         </p>
         <div className="button-group">
           <button onClick={() => setIsModalOpen(true)}>Add Movie</button>
