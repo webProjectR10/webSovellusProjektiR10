@@ -57,7 +57,7 @@ const MovieRatings = ({ isOpen, closeModal, movieName, movieId }) => {
             </div>
           ))
         ) : (
-          <p>Loading...</p>
+          <p>No reviews yet</p>
         )}
         {userFromSessionStorage === null ? null : (
           <button onClick={openRateModal}>Rate</button>
