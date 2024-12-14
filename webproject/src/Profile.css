@@ -1,68 +1,125 @@
 .profile-container {
-    background-color: #333333; 
-    max-width: 800px;
-    margin: 36px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    color: white; 
-  }
-  
-  .profile-box {
-    background-color: #444444; 
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .profile-box h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .profile-box .bio {
-    font-size: 16px;
-    margin-bottom: 15px;
-  }
-  
-  .profile-box .account-created {
-    font-size: 14px;
-    color: #cccccc; 
-    margin-bottom: 20px;
-  }
-  
-  .profile-container button {
-    padding: 8px 16px; 
-    background-color: #00AAFF;
-    color: black;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: auto; 
-  }
-  
-  
-  .profile-container button:hover {
-    background-color: #0088cc;
-    color: white;
-  }
+  background-color: #333;
+  max-width: 800px;
+  margin: 36px auto;
+  padding: 20px;
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
 
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #333333;
-    color: white;
-    resize: vertical;
-  }
+.profile-box {
+  background-color: #444;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #666;
+}
+
+.profile-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-container input,
+.search-container button {
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.search-container input {
+  background-color: #555;
+  color: white;
+  border: 1px solid #777;
+}
+
+.search-container button {
+  background-color: #00AAFF;
+  color: white;
+  cursor: pointer;
+}
+
+.search-container button:hover {
+  background-color: #0088cc;
+}
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 100%;
+  background-color: #444;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.search-result {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #555;
+  border: 1px solid #777;
+}
+
+.search-result p {
+  margin: 0;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.search-result button {
+  padding: 8px 15px;
+  border-radius: 8px;
+  background-color: #00AAFF;
+  color: white;
+  cursor: pointer;
+}
+
+.search-result button:hover {
+  background-color: #0088cc;
+}
+
+.favorite-movies {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.delete-button {
+  margin-left: auto;
+  background-color: #ff4c4c;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  background-color: #ff3333;
+}
+
+.sort-button {
+  margin-left: 10px;
+}
