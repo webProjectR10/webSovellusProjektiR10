@@ -13,6 +13,7 @@ const GroupsScreen = () => {
   const [groupName, setGroupName] = useState("");
   const { user } = useUser();
   const [groups, setGroups] = useState([]);
+  const [userGroups, setUserGroups] = useState([]);
   const navigate = useNavigate();
 
   const openModal = () => setIsModalOpen(true);
@@ -27,9 +28,19 @@ const GroupsScreen = () => {
     }
   };
 
+  const fetchUserGroups = async () => {
+    try {
+      const response = await axios.get(`${url}/members/byUser/${user.userid}`);
+      setUserGroups(response.data); 
+    } catch (error) {
+      console.error('Error fetching user groups:', error);
+    }
+  };
+
   useEffect(() => {
     fetchGroups();
-  }, []);
+    fetchUserGroups();
+  }, [user.userid]);
 
   const sortGroups = (e) => {
     console.log(`Sort by: ${e.target.value}`);
@@ -63,6 +74,21 @@ const GroupsScreen = () => {
 
   const handleOpenGroup = (groupId) => {
     navigate(`/group/${groupId}`);
+  };
+
+  /* TODO: tällä hetkellä voi lähettää niin monta requestia ku haluaa samaan ryhmään
+  ku ei ole checkkiä onko sama käyttäjä lähettäny pyyntöä samaan ryhmään aikasemmin*/
+  const handleRequestToJoin = async (groupId) => {
+    try {
+      const response = await axios.post(url + '/grouprequest/create', {
+        userid: user.userid,
+        groupid: groupId
+      });
+      console.log("Request sent successfully:", response.data);
+    } catch (error) {
+      console.error("Error sending join request:", error);
+    }
+    console.log(user.userid, groupId);
   };
 
   return (
@@ -104,13 +130,32 @@ const GroupsScreen = () => {
       </div>
       <section className="group-list">
         {groups.length > 0 ? (
-          groups.map((group) => (
-            <div className="group" key={group.groupid}>
-              <h2>{group.name}</h2>
-              <button className="btn btn-primary">Send request to join</button>
-              <button className="btn btn-primary" onClick={() => handleOpenGroup(group.groupid)}>Group info</button>
-            </div>
-          ))
+          groups.map((group) => {
+            const isMember = userGroups.some((userGroup) => userGroup.groupid === group.groupid);
+            const isOwner = user.userid === group.ownerid;
+
+            return (
+              <div className="group" key={group.groupid}>
+                <h2>{group.name}</h2>
+
+                {!isOwner && !isMember && (
+                  <button 
+                    className="btn btn-primary" 
+                    onClick={() => handleRequestToJoin(group.groupid)}>
+                    Send request to join
+                  </button>
+                )}
+
+                {(isMember || isOwner) && (
+                  <button 
+                    className="btn btn-primary" 
+                    onClick={() => handleOpenGroup(group.groupid)}>
+                    Group info
+                  </button>
+                )}
+              </div>
+            );
+          })
         ) : (
           <p>No groups available</p>
         )}

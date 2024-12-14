@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users, groups, members, favorites, review;
+DROP TABLE IF EXISTS users, groups, members, favorites, review, group_requests;
 
 CREATE TABLE users (
     userID SERIAL PRIMARY KEY,
@@ -34,4 +34,11 @@ CREATE TABLE review (
     text VARCHAR(255),
     stars INT,
     date_given TIMESTAMP DEFAULT NOW()
+);
+
+CREATE TABLE group_requests (
+    requestID SERIAL PRIMARY KEY,
+    userID INT REFERENCES users(userID) ON DELETE CASCADE,
+    groupID INT REFERENCES groups(groupID) ON DELETE CASCADE,
+    UNIQUE (userID, groupID)
 );

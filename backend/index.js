@@ -5,6 +5,7 @@ import groupsRouter from "./routers/groupsRouter.js";
 import reviewRouter from "./routers/reviewRouter.js";
 import memberRouter from "./routers/memberRouter.js";
 import favoriteRouter from "./routers/favoriteRouter.js";
+import groupRequestRouter from "./routers/groupRequestRouter.js"
 
 const port = process.env.PORT;
 const app = express();
@@ -17,6 +18,7 @@ app.use("/groups", groupsRouter);
 app.use("/review", reviewRouter);
 app.use("/members", memberRouter);
 app.use("/favorite", favoriteRouter);
+app.use("/grouprequest", groupRequestRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
