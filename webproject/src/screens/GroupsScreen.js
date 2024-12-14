@@ -104,13 +104,6 @@ const GroupsScreen = () => {
         />
       </div>
       <div className="create-group-box">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Group name"
-          value={groupName}
-          onChange={(e) => setGroupName(e.target.value)}
-        />
         <button className="btn btn-primary" onClick={openModal}>
           Create New Group
         </button>
