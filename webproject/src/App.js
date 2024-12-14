@@ -11,8 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { UserProvider } from './context/UserProvider';
 import Authentication, { AuthenticationMode } from './screens/Authentication';
 import Profile from './screens/Profile';
-import ProfileEdit from './screens/ProfileEdit';
-import NavBar from './components/NavBar'; // Add this import statement
+import NavBar from './components/NavBar';
 
 function App() {
   return (
@@ -35,11 +34,6 @@ function App() {
               <Route path="/profile" element={(
                 <ProtectedRoute>
                   <Profile />
-                </ProtectedRoute>
-              )} />
-              <Route path="/edit-profile" element={(
-                <ProtectedRoute>
-                  <ProfileEdit />
                 </ProtectedRoute>
               )} />
             </Routes>
