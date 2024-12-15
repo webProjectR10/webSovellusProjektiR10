@@ -39,7 +39,7 @@ const registerUser = async (req, res, next) => {
       !/[0-9]/.test(req.body.password) ||
       !/[a-z]/.test(req.body.password)
     ) {
-      return next(new ApiError("invalid password for user", 400));
+      return next(new ApiError("invalid password for user", 225));
     }
 
     const hashedPassword = await hash(req.body.password, 10);
@@ -72,7 +72,7 @@ const userLogin = async (req, res, next) => {
     }
     const user = userFromDb.rows[0];
     if (!(await compare(req.body.password, user.password))) {
-      return next(new ApiError("invalid credentials", 500));
+      return next(new ApiError("invalid credentials", 401));
     }
     const token = jwt.sign(
       { email: req.body.email },
@@ -101,11 +101,11 @@ const logOut = async (req, res, next) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
     if (!token) {
-      return res.status(200).json({ message: "Token doenst exists" });
+      return res.status(404).json({ message: "Token doesnt exists" });
     }
 
     if ( isTokenBlacklisted(token) ) {
-      return res.status(200).json({ message: "Token doenst exists" });
+      return res.status(400).json({ message: "Token already logged out" });
     }
 
     await addTokenToBlacklist(token);

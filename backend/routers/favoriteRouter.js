@@ -12,8 +12,8 @@ router.get("/", handleGetFavorites);
 
 router.get("/:userID", handleGetFavoritesByUserId);
 
-router.post("/add", handleAddFavorite);
+router.post("/add", handleAddFavorite);  // Keep only one definition
 
-router.delete("/delete", handleFavoriteDelete);
+router.post("/remove", handleFavoriteDelete); // Change from delete to post for consistency
 
 export default router;

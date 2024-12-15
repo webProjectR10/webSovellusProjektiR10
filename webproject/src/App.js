@@ -5,13 +5,13 @@ import { FinnkinoProvider } from "./context/FinnkinoContext";
 import HomeScreen from './screens/HomeScreen';
 import Finnkino from './screens/FinnKino';
 import GroupsScreen from './screens/GroupsScreen';
+import GroupDetailsPage from './components/GroupDetailsPage';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ProtectedRoute from './components/ProtectedRoute';
 import { UserProvider } from './context/UserProvider';
 import Authentication, { AuthenticationMode } from './screens/Authentication';
 import Profile from './screens/Profile';
-import ProfileEdit from './screens/ProfileEdit';
-import NavBar from './components/NavBar'; // Add this import statement
+import NavBar from './components/NavBar';
 
 function App() {
   return (
@@ -30,14 +30,10 @@ function App() {
                 </ProtectedRoute>
               )} />
               <Route path="/schedule" element={<Finnkino />} />
+              <Route path="/group/:groupId" element={<GroupDetailsPage />} />
               <Route path="/profile" element={(
                 <ProtectedRoute>
                   <Profile />
-                </ProtectedRoute>
-              )} />
-              <Route path="/edit-profile" element={(
-                <ProtectedRoute>
-                  <ProfileEdit />
                 </ProtectedRoute>
               )} />
             </Routes>
