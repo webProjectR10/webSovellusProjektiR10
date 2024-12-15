@@ -1,4 +1,4 @@
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 
 const Pagination = ({ pageCount, setPage, currentPage }) => {
   return (

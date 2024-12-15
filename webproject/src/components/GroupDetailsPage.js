@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import '../GroupDetailsPage.css'; 
-import { useUser } from '../context/UserContext';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../GroupDetailsPage.css";
+import { useUser } from "../context/UserContext";
 
 //TODO: tarkista onko käyttäjä ryhmän jäsen, jos ei niin -> navigate back to groupscreen
 
 const GroupDetailsPage = () => {
-  const { groupId } = useParams()
+  const { groupId } = useParams();
   const { user } = useUser();
   const [groupDetails, setGroupDetails] = useState(null);
   const [groupInvitations, setGroupInvitations] = useState([]);
@@ -17,20 +17,26 @@ const GroupDetailsPage = () => {
   useEffect(() => {
     const fetchGroupDetails = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/groups/${groupId}`);
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_URL}/groups/${groupId}`,
+        );
         const groupData = response.data;
         setGroupDetails(groupData);
 
-        const membersResponse = await axios.get(`${process.env.REACT_APP_API_URL}/members/${groupId}`);
+        const membersResponse = await axios.get(
+          `${process.env.REACT_APP_API_URL}/members/${groupId}`,
+        );
         setMembers(membersResponse.data.members);
 
         const isOwner = user.userid === groupData.ownerid;
         if (isOwner) {
-          const invitationsResponse = await axios.get(`${process.env.REACT_APP_API_URL}/grouprequest/group/${groupId}`);
+          const invitationsResponse = await axios.get(
+            `${process.env.REACT_APP_API_URL}/grouprequest/group/${groupId}`,
+          );
           setGroupInvitations(invitationsResponse.data);
         }
       } catch (error) {
-        console.error('Error fetching group details or requests:', error);
+        console.error("Error fetching group details or requests:", error);
       }
     };
 
@@ -44,7 +50,7 @@ const GroupDetailsPage = () => {
   const handleRemoveMember = async (memberid) => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/members/delete`, {
-        data: { userid: memberid, groupid: groupId }
+        data: { userid: memberid, groupid: groupId },
       });
       setMembers(members.filter((member) => member.userid !== memberid));
       console.log("Member removed successfully");
@@ -56,11 +62,11 @@ const GroupDetailsPage = () => {
   const handleLeaveGroup = async () => {
     try {
       await axios.delete(`${process.env.REACT_APP_API_URL}/members/delete`, {
-        data: { userid: user.userid, groupid: groupId }
+        data: { userid: user.userid, groupid: groupId },
       });
       setMembers(members.filter((member) => member.userid !== user.userid));
       console.log("You have successfully left the group.");
-      navigate('/groupsscreen');
+      navigate("/groupsscreen");
     } catch (error) {
       console.error("Error leaving group:", error);
     }
@@ -68,9 +74,13 @@ const GroupDetailsPage = () => {
 
   const handleAcceptRequest = async (requestid, newMember) => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/grouprequest/${requestid}/accept`);
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/grouprequest/${requestid}/accept`,
+      );
       setMembers((prevMembers) => [...prevMembers, newMember]);
-      setGroupInvitations((prev) => prev.filter((req) => req.requestid !== requestid));
+      setGroupInvitations((prev) =>
+        prev.filter((req) => req.requestid !== requestid),
+      );
       console.log("Request accepted");
     } catch (error) {
       console.error("Error accepting request:", error);
@@ -79,8 +89,12 @@ const GroupDetailsPage = () => {
 
   const handleRejectRequest = async (requestid) => {
     try {
-      await axios.post(`${process.env.REACT_APP_API_URL}/grouprequest/${requestid}/reject`);
-      setGroupInvitations((prev) => prev.filter((req) => req.requestid !== requestid));
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/grouprequest/${requestid}/reject`,
+      );
+      setGroupInvitations((prev) =>
+        prev.filter((req) => req.requestid !== requestid),
+      );
       console.log("Request rejected");
     } catch (error) {
       console.error("Error rejecting request:", error);
@@ -91,22 +105,27 @@ const GroupDetailsPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.delete(`${process.env.REACT_APP_API_URL}/groups/delete/${groupId}`, {
-        data: { groupid: groupId, ownerid: user.userid  }
-      });
-      navigate('/groupsscreen')
-      console.log('Group deleted successfully:', response.data);
-    } catch(error){
-      console.error('Error deleting group:', error);
+      const response = await axios.delete(
+        `${process.env.REACT_APP_API_URL}/groups/delete/${groupId}`,
+        {
+          data: { groupid: groupId, ownerid: user.userid },
+        },
+      );
+      navigate("/groupsscreen");
+      console.log("Group deleted successfully:", response.data);
+    } catch (error) {
+      console.error("Error deleting group:", error);
     }
-  }
+  };
 
   const isOwner = user.userid === groupDetails.ownerid;
 
   return (
     <div className="GroupDetailsPage">
       <h1>{groupDetails.name}</h1>
-      <p>Owner: {groupDetails.first_name} {groupDetails.last_name}</p>
+      <p>
+        Owner: {groupDetails.first_name} {groupDetails.last_name}
+      </p>
       <p>Group ID: {groupDetails.groupid}</p>
 
       <h2>Current Members:</h2>
@@ -124,10 +143,7 @@ const GroupDetailsPage = () => {
                 </button>
               )}
               {!isOwner && member.userid === user.userid && (
-                <button
-                  className="btn btn-warning"
-                  onClick={handleLeaveGroup}
-                >
+                <button className="btn btn-warning" onClick={handleLeaveGroup}>
                   Leave
                 </button>
               )}
@@ -137,7 +153,6 @@ const GroupDetailsPage = () => {
           <p>No members yet.</p>
         )}
       </ul>
-
 
       {isOwner && (
         <>
@@ -152,18 +167,23 @@ const GroupDetailsPage = () => {
                 {groupInvitations.map((invitation) => (
                   <li key={invitation.requestid} className="invitation-item">
                     <p>
-                      {invitation.first_name} {invitation.last_name} wants to join the group
+                      {invitation.first_name} {invitation.last_name} wants to
+                      join the group
                     </p>
                     <div>
                       <button
                         className="btn btn-success"
-                        onClick={() => handleAcceptRequest(invitation.requestid, invitation)}
+                        onClick={() =>
+                          handleAcceptRequest(invitation.requestid, invitation)
+                        }
                       >
                         Accept
                       </button>
                       <button
                         className="btn btn-danger"
-                        onClick={() => handleRejectRequest(invitation.requestid)}
+                        onClick={() =>
+                          handleRejectRequest(invitation.requestid)
+                        }
                       >
                         Reject
                       </button>

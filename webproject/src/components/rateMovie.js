@@ -21,7 +21,7 @@ const RateMovie = ({ isOpen, closeModal, movieName, movieid }) => {
           text: text,
           stars: stars,
         },
-        { headers }
+        { headers },
       );
       if (response.status === 201) {
         alert("Review submitted successfully!");
