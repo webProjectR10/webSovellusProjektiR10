@@ -1,6 +1,12 @@
 import React from "react";
 
-const CreateGroup = ({ isOpen, closeModal, groupName, setGroupName, handleSubmit }) => {
+const CreateGroup = ({
+  isOpen,
+  closeModal,
+  groupName,
+  setGroupName,
+  handleSubmit,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -17,8 +23,14 @@ const CreateGroup = ({ isOpen, closeModal, groupName, setGroupName, handleSubmit
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">Create</button>
-          <button type="button" className="btn btn-primary" onClick={closeModal}>
+          <button type="submit" className="btn btn-primary">
+            Create
+          </button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={closeModal}
+          >
             Cancel
           </button>
         </form>

@@ -43,7 +43,7 @@
 .authentication-container button {
   text-align: center;
   padding: 10px;
-  background-color: #00AAFF;
+  background-color: #00aaff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -61,6 +61,6 @@
   text-align: center;
   display: block;
   margin-top: 10px;
-  color: #00AAFF;
+  color: #00aaff;
   margin-top: 15px;
 }

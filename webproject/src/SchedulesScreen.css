@@ -19,14 +19,15 @@
   border-collapse: collapse;
 }
 
-.schedules-container th, .schedules-container td {
+.schedules-container th,
+.schedules-container td {
   padding: 10px;
   border: 1px solid #ccc;
   text-align: left;
 }
 
 .schedules-container th {
-  background-color: #00AAFF;
+  background-color: #00aaff;
   color: white;
 }
 
@@ -37,7 +38,7 @@
 .schedules-container button {
   text-align: center;
   padding: 10px;
-  background-color: #00AAFF;
+  background-color: #00aaff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -55,10 +56,10 @@
   text-align: center;
   display: block;
   margin-top: 10px;
-  color: #00AAFF;
+  color: #00aaff;
   margin-top: 15px;
 }
-td{
+td {
   color: white;
   padding: 5px;
 }

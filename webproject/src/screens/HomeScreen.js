@@ -4,7 +4,7 @@ import MovieList from "../components/MovieList";
 import Search from "../components/Search";
 import Pagination from "../components/Pagination";
 import { useMovieContext } from "../context/MovieContext";
-import MovieInfo from "../components/movieInfo"
+import MovieInfo from "../components/movieInfo";
 const token = process.env.REACT_APP_BEARER_TOKEN;
 
 const HomeScreen = () => {
@@ -21,12 +21,12 @@ const HomeScreen = () => {
   const [genres, setGenres] = useState({});
   const [pageCount, setPageCount] = useState(0);
   const [inputValue, setInputValue] = useState(searchQuery);
-  const [allMovies, setAllMovies] = useState([]); 
+  const [allMovies, setAllMovies] = useState([]);
   const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   useEffect(() => {
-    document.body.style.backgroundColor = '#1A1A1A'; 
+    document.body.style.backgroundColor = "#1A1A1A";
     return () => {
       document.body.style.backgroundColor = "";
     };
@@ -101,16 +101,16 @@ const HomeScreen = () => {
 
     setAllMovies(allMovies);
     setPageCount(Math.ceil(allMovies.length / 25));
-    setMovies(allMovies.slice(0, 25)); 
+    setMovies(allMovies.slice(0, 25));
   }, [filter, genres, searchQuery, setMovies]);
 
   const handleSortByRating = () => {
     const sortedMovies = [...allMovies].sort(
-      (a, b) => b.vote_average - a.vote_average
+      (a, b) => b.vote_average - a.vote_average,
     );
     setAllMovies(sortedMovies);
     setPage(1);
-    setMovies(sortedMovies.slice(0, 25)); 
+    setMovies(sortedMovies.slice(0, 25));
   };
 
   useEffect(() => {
@@ -124,19 +124,19 @@ const HomeScreen = () => {
   const handleSearch = () => {
     setPage(1);
     setSearchQuery(inputValue);
-    setAllMovies([]); 
+    setAllMovies([]);
   };
 
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
     setMovies([]);
-    setAllMovies([]); 
+    setAllMovies([]);
     setPage(1);
   };
 
   useEffect(() => {
     if (allMovies.length > 0) {
-      setMovies(allMovies.slice((page - 1) * 25, page * 25)); 
+      setMovies(allMovies.slice((page - 1) * 25, page * 25));
     }
   }, [page, allMovies]);
 

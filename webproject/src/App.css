@@ -1,5 +1,5 @@
 body {
-  background-color: #1A1A1A;
+  background-color: #1a1a1a;
 }
 #container {
   margin: 2em;
@@ -30,6 +30,5 @@ li.selected {
 .navbar-nav li {
   width: auto;
   flex-grow: 1;
-  text-align: center; 
+  text-align: center;
 }
-

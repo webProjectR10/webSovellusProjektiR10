@@ -47,7 +47,7 @@
 }
 
 .search-container button {
-  background-color: #00AAFF;
+  background-color: #00aaff;
   color: white;
   cursor: pointer;
 }
@@ -87,7 +87,7 @@
 .search-result button {
   padding: 8px 15px;
   border-radius: 8px;
-  background-color: #00AAFF;
+  background-color: #00aaff;
   color: white;
   cursor: pointer;
 }

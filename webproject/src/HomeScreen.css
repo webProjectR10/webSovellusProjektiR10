@@ -1,9 +1,9 @@
 body {
-  background-color: #1A1A1A; 
+  background-color: #1a1a1a;
 }
 
 .home-container {
-  background-color: #333333; 
+  background-color: #333333;
   max-width: 800px;
   margin: 36px auto;
   padding: 20px;
@@ -15,7 +15,7 @@ body {
 .home-container h3 {
   text-align: center;
   margin-bottom: 20px;
-  color: white; 
+  color: white;
 }
 
 .home-container table {
@@ -23,21 +23,22 @@ body {
   border-collapse: collapse;
 }
 
-.home-container th, .home-container td {
+.home-container th,
+.home-container td {
   padding: 10px;
   border: 1px solid #ccc;
   text-align: left;
 }
 
 .home-container th {
-  background-color: #00AAFF;
+  background-color: #00aaff;
   color: white;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .home-container td {
-  background-color: #444444; 
-  color: white; 
+  background-color: #444444;
+  color: white;
 }
 
 .home-container button,
@@ -45,13 +46,13 @@ body {
 .sort-button {
   text-align: center;
   padding: 10px;
-  background-color: #00AAFF;
+  background-color: #00aaff;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 15px;
-  width: 100%; 
+  width: 100%;
 }
 
 .home-container button:hover,
@@ -64,7 +65,7 @@ body {
   text-align: center;
   display: block;
   margin-top: 10px;
-  color: #00AAFF;
+  color: #00aaff;
   margin-top: 15px;
 }
 
@@ -82,16 +83,16 @@ body {
   border-radius: 5px;
   margin-bottom: 10px;
   width: 100%;
-  background-color: #333333; 
-  color: white; 
+  background-color: #333333;
+  color: white;
 }
 
 .search-container input::placeholder {
-  color: white; 
+  color: white;
 }
 
 .search-container input[type="date"] {
-  color: white; 
+  color: white;
 }
 
 .search-results {
@@ -106,19 +107,20 @@ body {
   border-collapse: collapse;
 }
 
-.schedule-table th, .schedule-table td {
+.schedule-table th,
+.schedule-table td {
   padding: 10px;
   border: 1px solid #ccc;
   text-align: left;
 }
 
 .schedule-table th {
-  background-color: #00AAFF;
+  background-color: #00aaff;
   color: white;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 .schedule-table td {
   background-color: #444444;
-  color: white; 
+  color: white;
 }

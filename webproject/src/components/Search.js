@@ -1,8 +1,15 @@
-import '../HomeScreen.css';
+import "../HomeScreen.css";
 
-const Search = ({ query, setQuery, filter, setFilter, handleSearch, handleSortByRating }) => {
+const Search = ({
+  query,
+  setQuery,
+  filter,
+  setFilter,
+  handleSearch,
+  handleSortByRating,
+}) => {
   const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
     }
   };
@@ -22,7 +29,12 @@ const Search = ({ query, setQuery, filter, setFilter, handleSearch, handleSortBy
       <button onClick={handleSearch} type="button">
         Search
       </button>
-      <button value="rating" onClick={handleSortByRating} type="button" className="sort-button">
+      <button
+        value="rating"
+        onClick={handleSortByRating}
+        type="button"
+        className="sort-button"
+      >
         Sort by Rating
       </button>
     </div>

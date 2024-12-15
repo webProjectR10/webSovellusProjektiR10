@@ -1,5 +1,5 @@
 body {
-  background-color: #1A1A1A; 
+  background-color: #1a1a1a;
 }
 
 .GroupsScreen {
@@ -8,7 +8,7 @@ body {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: #333333; 
+  background-color: #333333;
   color: white;
 }
 
@@ -21,8 +21,8 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #333333; 
-  color: white;  
+  background-color: #333333;
+  color: white;
 }
 
 .search-box input::placeholder {
@@ -31,14 +31,14 @@ body {
 
 .search-box input:focus {
   outline: none;
-  color: white; 
-  border-color: #00AAFF; 
-  background-color: #333333; 
+  color: white;
+  border-color: #00aaff;
+  background-color: #333333;
 }
 
 .create-group-box {
   margin-bottom: 20px;
-  color: white; 
+  color: white;
 }
 
 .create-group-box input {
@@ -46,25 +46,25 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #333333; 
-  color: white; 
+  background-color: #333333;
+  color: white;
 }
 .create-group-box input::placeholder {
-  color: white; 
+  color: white;
 }
 
 .create-group-box input:focus {
   outline: none;
-  border-color: #00AAFF; 
-  background-color: #333333; 
-  color: white; 
+  border-color: #00aaff;
+  background-color: #333333;
+  color: white;
 }
 
 .create-group-box button,
 .group button,
 .modal-content button {
-  background-color: #00AAFF; 
-  color: black; 
+  background-color: #00aaff;
+  color: black;
   border: none;
   border-radius: 5px;
   padding: 10px 20px;
@@ -76,12 +76,11 @@ body {
 .group button:hover,
 .modal-content button:hover {
   background-color: #0088cc;
-  color: white; 
+  color: white;
 }
 
 .sort-box {
   margin-bottom: 20px;
-  
 }
 
 .sort-box select {
@@ -89,15 +88,15 @@ body {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #333333; 
+  background-color: #333333;
   color: white;
 }
 
 .sort-box select:focus {
   outline: none;
-  color: white; 
-  border-color: #00AAFF; 
-  background-color: #333333; 
+  color: white;
+  border-color: #00aaff;
+  background-color: #333333;
 }
 
 .group-list {
@@ -108,7 +107,7 @@ body {
 .search-box,
 .sort-box,
 .create-group-box {
-  background-color: #444444; 
+  background-color: #444444;
   padding: 15px;
   border-radius: 5px;
   margin-bottom: 10px;
@@ -116,7 +115,7 @@ body {
 
 .group h2 {
   margin: 0 0 10px 0;
-  color: white; 
+  color: white;
 }
 
 .modal-overlay {
@@ -129,20 +128,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  
 }
 
 .modal-content {
-  background-color: #333333; 
+  background-color: #333333;
   padding: 20px;
   border-radius: 10px;
   width: 400px;
-  color: white; 
+  color: white;
 }
 
 .modal-content h2 {
   margin-top: 0;
-  color: white; 
+  color: white;
 }
 
 .modal-content form div {
@@ -152,7 +150,7 @@ body {
 .modal-content form label {
   display: block;
   margin-bottom: 5px;
-  color: white; 
+  color: white;
 }
 
 .modal-content form input {
@@ -161,16 +159,15 @@ body {
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #333333;
-  color: white; 
+  color: white;
 }
 
 .modal-content form input:focus {
   outline: none;
-  border-color: #00AAFF; 
-  background-color: #333333; 
+  border-color: #00aaff;
+  background-color: #333333;
 }
 
-
 .form-control {
-  color: white; 
+  color: white;
 }

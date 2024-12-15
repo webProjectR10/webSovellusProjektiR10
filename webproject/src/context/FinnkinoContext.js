@@ -7,7 +7,18 @@ export const FinnkinoProvider = ({ children }) => {
   const [schedule, setSchedule] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   return (
-    <FinnkinoContext.Provider value={{ areas, setAreas, selectedArea, setSelectedArea, schedule, setSchedule, startDate, setStartDate }}>
+    <FinnkinoContext.Provider
+      value={{
+        areas,
+        setAreas,
+        selectedArea,
+        setSelectedArea,
+        schedule,
+        setSchedule,
+        startDate,
+        setStartDate,
+      }}
+    >
       {children}
     </FinnkinoContext.Provider>
   );

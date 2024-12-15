@@ -37,34 +37,34 @@ li a {
   font-size: 18px;
   font-weight: bold;
   margin-right: 25px;
-  background-color: #00AAFF; 
+  background-color: #00aaff;
   padding: 10px 20px;
   border-radius: 5px;
   text-decoration: none;
 }
 
 li a:hover {
-  background-color: #0088cc; 
-  color: white; 
+  background-color: #0088cc;
+  color: white;
 }
 
 button {
-  background-color: #00AAFF; 
+  background-color: #00aaff;
   color: black;
   margin-left: 10px;
-  border-radius: 5px; 
+  border-radius: 5px;
   padding: 10px 20px;
   width: auto;
   cursor: pointer;
-  text-decoration: none; 
+  text-decoration: none;
   border: none;
-  font-size: 18px; 
-  font-weight: bold; 
+  font-size: 18px;
+  font-weight: bold;
 }
 
 button:hover {
-  background-color: #0088cc; 
-  color: white; 
+  background-color: #0088cc;
+  color: white;
 }
 
 button a {
@@ -74,6 +74,7 @@ button a {
   text-decoration: none;
 }
 
-#login-button, #profile-button {
-  margin-left: auto; 
+#login-button,
+#profile-button {
+  margin-left: auto;
 }
