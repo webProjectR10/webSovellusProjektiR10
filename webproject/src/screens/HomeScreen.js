@@ -21,12 +21,12 @@ const HomeScreen = () => {
   const [genres, setGenres] = useState({});
   const [pageCount, setPageCount] = useState(0);
   const [inputValue, setInputValue] = useState(searchQuery);
-  const [allMovies, setAllMovies] = useState([]); // Lista kaikille hakutuloksille
+  const [allMovies, setAllMovies] = useState([]); 
   const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  
   useEffect(() => {
-    document.body.style.backgroundColor = "#1A1A1A"; // Tumma tausta
+    document.body.style.backgroundColor = '#1A1A1A'; 
     return () => {
       document.body.style.backgroundColor = "";
     };
@@ -73,7 +73,7 @@ const HomeScreen = () => {
         if (!genreId) {
           console.error("Genre not found:", searchQuery);
           setMovies([]);
-          setAllMovies([]); // Tyhjennä lista
+          setAllMovies([]);
           return;
         }
         url += `discover/movie?with_genres=${genreId}`;
@@ -101,7 +101,7 @@ const HomeScreen = () => {
 
     setAllMovies(allMovies);
     setPageCount(Math.ceil(allMovies.length / 25));
-    setMovies(allMovies.slice(0, 25)); // Näytä ensimmäiset 25 tulosta
+    setMovies(allMovies.slice(0, 25)); 
   }, [filter, genres, searchQuery, setMovies]);
 
   const handleSortByRating = () => {
@@ -110,7 +110,7 @@ const HomeScreen = () => {
     );
     setAllMovies(sortedMovies);
     setPage(1);
-    setMovies(sortedMovies.slice(0, 25)); // Näytä ensimmäiset 25 tulosta
+    setMovies(sortedMovies.slice(0, 25)); 
   };
 
   useEffect(() => {
@@ -124,19 +124,19 @@ const HomeScreen = () => {
   const handleSearch = () => {
     setPage(1);
     setSearchQuery(inputValue);
-    setAllMovies([]); // Tyhjennä lista
+    setAllMovies([]); 
   };
 
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
     setMovies([]);
-    setAllMovies([]); // Tyhjennä lista
+    setAllMovies([]); 
     setPage(1);
   };
 
   useEffect(() => {
     if (allMovies.length > 0) {
-      setMovies(allMovies.slice((page - 1) * 25, page * 25)); // Päivitä näytettävät tulokset sivun mukaan
+      setMovies(allMovies.slice((page - 1) * 25, page * 25)); 
     }
   }, [page, allMovies]);
 
