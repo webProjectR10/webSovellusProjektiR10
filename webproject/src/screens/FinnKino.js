@@ -4,6 +4,8 @@ import TheaterSelector from "../components/Theaterselector";
 import DatePickerComponent from "../components/DatePicker";
 import ScheduleTable from "../components/ScheduleTable";
 import '../SchedulesScreen.css'; 
+import '../HomeScreen.css';
+
 const Finnkino = () => {
 const { areas, setAreas, selectedArea, setSelectedArea, schedule, setSchedule, startDate, setStartDate } = useFinnkinoContext();
   const getFinnkinoTheaters = useCallback ((xml) => {
