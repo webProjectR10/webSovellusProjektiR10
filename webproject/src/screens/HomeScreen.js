@@ -22,14 +22,11 @@ const HomeScreen = () => {
   const [pageCount, setPageCount] = useState(0);
   const [inputValue, setInputValue] = useState(searchQuery);
   const [allMovies, setAllMovies] = useState([]); 
-  
-  const [allMovies, setAllMovies] = useState([]); // Lista kaikille hakutuloksille
   const [selectedMovieId, setSelectedMovieId] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  
   useEffect(() => {
     document.body.style.backgroundColor = '#1A1A1A'; 
-    document.body.style.backgroundColor = "#1A1A1A"; // Tumma tausta
     return () => {
       document.body.style.backgroundColor = "";
     };
